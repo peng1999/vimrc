@@ -29,9 +29,11 @@ snoremap <C-A> <C-C>ggV<C-O>G
 xnoremap <C-A> <C-C>ggVG
 
 "------------------------------------------------------------------------
-" Origin config
+" Diff in Windows
 "------------------------------------------------------------------------
-set diffexpr=MyDiff()
+if has("win32")
+    set diffexpr=MyDiff()
+endif
 function MyDiff()
   let opt = '-a --binary '
   if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
