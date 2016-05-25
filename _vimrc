@@ -6,6 +6,7 @@ source $VIMRUNTIME/mswin.vim
 set shiftwidth=4
 set guifont=Courier_New:h15:cANSI
 set expandtab
+set smarttab
 set number
 set selectmode-=mouse
 
