@@ -48,8 +48,8 @@ function MyDiff()
   let eq = ''
   if $VIMRUNTIME =~ ' '
     if &sh =~ '\<cmd'
-      let cmd = '""' . $VIMRUNTIME . '\diff"'
-      let eq = '"'
+      let cmd = '"' . $VIMRUNTIME . '\diff"'
+      let eq = '""'
     else
       let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
     endif
