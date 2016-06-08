@@ -3,12 +3,15 @@ set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 
-set shiftwidth=4
+" GUI
 set guifont=Courier_New:h15:cANSI
-set expandtab
-set smarttab
 set number
 set selectmode-=mouse
+" All about tabs
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set smarttab
 
 set nobackup
 
