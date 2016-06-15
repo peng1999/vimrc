@@ -3,15 +3,14 @@ set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 
-" GUI
-set guifont=Courier_New:h15:cANSI
-set number
-set selectmode-=mouse
-" All about tabs
-set tabstop=4
 set shiftwidth=4
+if has("win32")
+    set guifont=Courier_New:h15:cANSI
+endif
 set expandtab
 set smarttab
+set number
+set selectmode-=mouse
 
 set nobackup
 
@@ -31,6 +30,9 @@ cnoremap <C-A> <C-C>ggV<C-O>G
 onoremap <C-A> <C-C>ggV<C-O>G
 snoremap <C-A> <C-C>ggV<C-O>G
 xnoremap <C-A> <C-C>ggVG
+
+" CTRL-O
+noremap <C-O> <C-O>zz
 
 "------------------------------------------------------------------------
 " Diff in Windows
