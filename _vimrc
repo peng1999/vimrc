@@ -4,9 +4,6 @@ source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 
 set shiftwidth=4
-if has("win32")
-    set guifont=Courier_New:h15:cANSI
-endif
 set expandtab
 set smarttab
 set number
@@ -36,12 +33,16 @@ xnoremap <C-A> <C-C>ggVG
 noremap <C-I> <C-I>zz
 noremap <C-O> <C-O>zz
 
-"------------------------------------------------------------------------
-" Diff in Windows
-"------------------------------------------------------------------------
+" Windows only settings
 if has("win32")
+    " GUI font
+    set guifont=Courier_New:h15:cANSI
+    " I use DEV-CPP's mingw32-make
+    set makeprg=mingw32-make
     set diffexpr=MyDiff()
 endif
+
+" Diff in Windows
 function MyDiff()
   let opt = '-a --binary '
   if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
