@@ -11,6 +11,7 @@ set expandtab
 set smarttab
 set number
 set selectmode-=mouse
+set autowrite
 
 set nobackup
 
