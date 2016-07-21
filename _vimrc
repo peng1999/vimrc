@@ -40,7 +40,7 @@ if has("win32")
     " GUI font
     set guifont=Courier_New:h15:cANSI
     " I use DEV-CPP's mingw32-make
-    set makeprg=mingw32-make
+    "set makeprg=mingw32-make
     set diffexpr=MyDiff()
 endif
 
