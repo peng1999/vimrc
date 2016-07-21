@@ -12,6 +12,8 @@ set autowrite
 
 set nobackup
 
+colorscheme torte
+
 autocmd FileType cpp abbreviate ll long long
 
 " I don't want these maps in mswin.vim
