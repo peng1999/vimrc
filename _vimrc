@@ -34,10 +34,6 @@ onoremap <C-A> <C-C>ggV<C-O>G
 snoremap <C-A> <C-C>ggV<C-O>G
 xnoremap <C-A> <C-C>ggVG
 
-" Redraw when press CTRL-I and CTRL-O
-noremap <C-I> <C-I>zz
-noremap <C-O> <C-O>zz
-
 " Windows only settings
 if has("win32")
     " GUI font
