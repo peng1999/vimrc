@@ -14,8 +14,12 @@ set nobackup
 
 colorscheme torte
 
+" Abbrevation for `long *`
 autocmd FileType cpp abbreviate ll long long
-autocmd FileType cpp abbreviate cint const int
+autocmd FileType cpp abbreviate ld long double
+
+" Typo
+autocmd FileType cpp abbreviate itn int
 
 " I don't want these maps in mswin.vim
 unmap <C-Y>
