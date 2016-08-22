@@ -1,4 +1,3 @@
-" ------------------------------------------------------
 " Vundle setup
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -13,11 +12,11 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'tpope/vim-fugitive'
-Plugin 'latex-box-team/latex-box'
-Plugin 'xuhdev/vim-latex-live-preview'
-Plugin 'shougo/neocomplete.vim'
-" Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
+
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'raimondi/delimitmate'
+autocmd FileType cpp let b:delimitMate_expand_cr = 1
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
