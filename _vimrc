@@ -38,6 +38,10 @@ onoremap <C-A> <C-C>ggV<C-O>G
 snoremap <C-A> <C-C>ggV<C-O>G
 xnoremap <C-A> <C-C>ggVG
 
+" Auto Compile
+noremap <F5> :!%<<CR>
+noremap <F10> :!g++ % -o %<.exe<CR>
+
 " Windows only settings
 if has("win32")
     " GUI font
