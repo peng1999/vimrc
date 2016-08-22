@@ -46,7 +46,14 @@ set autowrite
 
 set nobackup
 
+colorscheme torte
+
+" Abbrevation for `long *`
 autocmd FileType cpp abbreviate ll long long
+autocmd FileType cpp abbreviate ld long double
+
+" Typo
+autocmd FileType cpp abbreviate itn int
 
 " I don't want these maps in mswin.vim
 unmap <C-Y>
@@ -65,16 +72,16 @@ onoremap <C-A> <C-C>ggV<C-O>G
 snoremap <C-A> <C-C>ggV<C-O>G
 xnoremap <C-A> <C-C>ggVG
 
-" Redraw when press CTRL-I and CTRL-O
-noremap <C-I> <C-I>zz
-noremap <C-O> <C-O>zz
+" Auto Compile
+noremap <F5> :!%<<CR>
+noremap <F10> :!g++ % -o %<.exe<CR>
 
 " Windows only settings
 if has("win32")
     " GUI font
     set guifont=Courier_New:h15:cANSI
     " I use DEV-CPP's mingw32-make
-    set makeprg=mingw32-make
+    "set makeprg=mingw32-make
     set diffexpr=MyDiff()
 endif
 
