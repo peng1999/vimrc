@@ -31,6 +31,14 @@ autocmd FileType cpp abbreviate itn int
 unmap <C-Y>
 iunmap <C-Y>
 vunmap <BS>
+" If in TUI
+if !has("gui_running")
+    unmap <C-C>
+    unmap <C-V>
+    iunmap <C-C>
+    iunmap <C-V>
+    unmap <C-Q>
+endif
 
 " <C-Y> and <C-E> are also available in insert mode.
 inoremap <C-Y> <C-O><C-Y>
@@ -52,8 +60,10 @@ noremap <F10> :!g++ % -o %<.exe<CR>
 if has("win32")
     " GUI font
     set guifont=Courier_New:h15:cANSI
+
     " I use DEV-CPP's mingw32-make
     "set makeprg=mingw32-make
+
     set diffexpr=MyDiff()
 endif
 
