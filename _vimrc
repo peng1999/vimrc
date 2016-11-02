@@ -35,7 +35,6 @@ vunmap <BS>
 if !has("gui_running")
     unmap <C-C>
     unmap <C-V>
-    iunmap <C-C>
     iunmap <C-V>
     unmap <C-Q>
 endif
@@ -53,7 +52,11 @@ snoremap <C-A> <C-C>ggV<C-O>G
 xnoremap <C-A> <C-C>ggVG
 
 " Auto Compile
-noremap <F5> :!%<<CR>
+if has("win32")
+    noremap <F5> :!%<<CR>
+else
+    noremap <F5> :!./%<.o<CR>
+endif
 noremap <F10> :!g++ % -o %<.exe<CR>
 
 " Windows only settings
