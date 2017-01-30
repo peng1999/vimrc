@@ -16,6 +16,14 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'raimondi/delimitmate'
+
+Plugin 'Chiel92/vim-autoformat'
+
+Plugin 'rust-lang/rust.vim'
+Plugin 'vim-syntastic/syntastic'
+let g:syntastic_rust_checkers = ['rustc']
+let g:syntastic_cpp_compiler_options = ' -std=c++1y'
+
 autocmd FileType cpp let b:delimitMate_expand_cr = 1
 
 " All of your Plugins must be added before the following line
