@@ -16,6 +16,9 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'raimondi/delimitmate'
+
+Plugin 'Chiel92/vim-autoformat'
+
 autocmd FileType cpp let b:delimitMate_expand_cr = 1
 
 " All of your Plugins must be added before the following line
