@@ -51,10 +51,11 @@ xnoremap <C-A> <C-C>ggVG
 " Auto Compile
 if has("win32")
     noremap <F5> :!%<<CR>
+    noremap <F10> :!g++ % -o %<.exe<CR>
 else
     noremap <F5> :!./%<.o<CR>
+    noremap <F10> :!g++ % -o %<.o<CR>
 endif
-noremap <F10> :!g++ % -o %<.exe<CR>
 
 " Windows only settings
 if has("win32")
