@@ -1,8 +1,5 @@
 set nocompatible
 
-set encoding=utf-8
-set fileencodings=utf-8,chinese,latin-1
-
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 
@@ -59,6 +56,9 @@ endif
 
 " Windows only settings
 if has("win32")
+    set encoding=utf-8
+    set fileencodings=utf-8,chinese,latin-1
+
     " GUI font
     set guifont=Courier_New:h15:cANSI
 
