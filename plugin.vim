@@ -19,6 +19,7 @@ autocmd FileType cpp let b:delimitMate_expand_cr = 1
 Plugin 'Chiel92/vim-autoformat'
 
 Plugin 'plasticboy/vim-markdown'
+autocmd FileType markdown set nofoldenable
 Plugin 'rust-lang/rust.vim'
 Plugin 'neovimhaskell/haskell-vim'
 Plugin 'itchyny/vim-haskell-indent'
