@@ -19,10 +19,15 @@ set number
 set selectmode-=mouse
 set autowrite
 
-let &undodir=&backupdir
-set undodir-=.
-set undodir^=~/tmp/vimundo
+" Backup and undofile directory:
+" - Make `.` the least choice
+" - Make ~/tmp/vimundo and ~/tmp/vimbackup the default on Linux
+" - Never use `~` on Linux
 set backupdir-=.
+set backupdir-=~/
+set backupdir+=.
+let &undodir=&backupdir
+set undodir^=~/tmp/vimundo
 set backupdir^=~/tmp/vimbackup
 
 colorscheme torte
