@@ -13,7 +13,7 @@ Plugin 'tpope/vim-fugitive'
 
 Plugin 'godlygeek/tabular'
 Plugin 'raimondi/delimitmate'
-autocmd FileType cpp let b:delimitMate_expand_cr = 1
+autocmd FileType cpp,rust let b:delimitMate_expand_cr = 1
 
 
 Plugin 'Chiel92/vim-autoformat'
