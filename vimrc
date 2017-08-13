@@ -9,6 +9,10 @@ if filereadable($VIMHOME . "/plugin.vim")
     source $VIMHOME/plugin.vim
 end
 
+if has('unix')
+    set shell=/bin/bash
+end
+
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 
