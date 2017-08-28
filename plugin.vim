@@ -1,46 +1,26 @@
-filetype off                  " required
+call plug#begin('~/.vim/bundle')
 
-" set the runtime path to include Vundle and initialize
-set runtimepath+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+Plug 'tpope/vim-fugitive'
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'tpope/vim-fugitive'
-
-Plugin 'godlygeek/tabular'
-Plugin 'raimondi/delimitmate'
+Plug 'godlygeek/tabular'
+Plug 'raimondi/delimitmate'
 autocmd FileType cpp,rust let b:delimitMate_expand_cr = 1
 
 
-Plugin 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat'
 
-Plugin 'plasticboy/vim-markdown'
+Plug 'plasticboy/vim-markdown'
 autocmd FileType markdown set nofoldenable
-Plugin 'rust-lang/rust.vim'
-Plugin 'neovimhaskell/haskell-vim'
-Plugin 'itchyny/vim-haskell-indent'
-Plugin 'dag/vim-fish'
+Plug 'rust-lang/rust.vim'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'itchyny/vim-haskell-indent'
+Plug 'dag/vim-fish'
 
-Plugin 'vim-syntastic/syntastic'
+Plug 'vim-syntastic/syntastic'
 let g:syntastic_rust_checkers = ['cargo']
 let g:syntastic_cpp_compiler_options = ' -std=c++1y'
 let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
+call plug#end()
