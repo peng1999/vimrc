@@ -26,7 +26,7 @@ Plugin 'itchyny/vim-haskell-indent'
 Plugin 'dag/vim-fish'
 
 Plugin 'vim-syntastic/syntastic'
-let g:syntastic_rust_checkers = ['rustc']
+let g:syntastic_rust_checkers = ['cargo']
 let g:syntastic_cpp_compiler_options = ' -std=c++1y'
 let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
 
