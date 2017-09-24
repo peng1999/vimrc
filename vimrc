@@ -31,6 +31,7 @@ set backupdir-=.
 set backupdir-=~/
 set backupdir+=.
 let &undodir=&backupdir
+let &directory=&backupdir
 set undodir^=~/tmp/vimundo
 set backupdir^=~/tmp/vimbackup
 
