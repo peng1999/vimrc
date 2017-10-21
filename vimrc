@@ -23,6 +23,8 @@ set number
 set selectmode-=mouse
 set autowrite
 
+set mouse=a
+
 " Backup and undofile directory:
 " - Make `.` the least choice
 " - Make ~/tmp/vimundo and ~/tmp/vimbackup the default on Linux
@@ -36,12 +38,19 @@ set backupdir^=~/tmp/vimbackup
 
 colorscheme torte
 
-" Abbrevation for `long *`
-autocmd FileType cpp abbreviate ll long long
-autocmd FileType cpp abbreviate ld long double
+augroup cppabbr
+    autocmd!
+    " Abbrevation for `long *`
+    autocmd FileType cpp abbreviate ll long long
+    autocmd FileType cpp abbreviate ld long double
 
-" Typo
-autocmd FileType cpp abbreviate itn int
+    " Typo
+    autocmd FileType cpp abbreviate itn int
+augroup END
+
+let mapleader="\<Space>"
+noremap <Leader><Leader> :noh<CR>
+noremap <Leader>b :buf#<CR>
 
 " I don't want these maps in mswin.vim
 unmap <C-Y>
@@ -66,6 +75,16 @@ cnoremap <C-A> <C-C>ggV<C-O>G
 onoremap <C-A> <C-C>ggV<C-O>G
 snoremap <C-A> <C-C>ggV<C-O>G
 xnoremap <C-A> <C-C>ggVG
+
+if has("nvim")
+    tnoremap <ESC> <C-\><C-N>
+    augroup terminal
+        autocmd!
+        autocmd TermOpen * setlocal nonumber
+        autocmd TermOpen * noremap <buffer> <Leader>r i<Up><C-\><C-N>
+        autocmd TermOpen * noremap <buffer> <Leader><CR> i<CR><C-\><C-N>G
+    augroup END
+end
 
 " Auto Compile
 if has("win32")
