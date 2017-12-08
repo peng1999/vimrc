@@ -81,10 +81,16 @@ if has("nvim")
     augroup terminal
         autocmd!
         autocmd TermOpen * setlocal nonumber
-        autocmd TermOpen * noremap <buffer> <Leader>r i<Up><C-\><C-N>
-        autocmd TermOpen * noremap <buffer> <Leader><CR> i<CR><C-\><C-N>G
+        autocmd TermOpen * noremap <buffer> <C-P> i<C-P><C-\><C-N>
+        autocmd TermOpen * noremap <buffer> <C-N> i<C-N><C-\><C-N>
+        autocmd TermOpen * noremap <buffer> <CR> i<CR><C-\><C-N>G
     augroup END
 end
+
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
 
 " Auto Compile
 if has("win32")
