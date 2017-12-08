@@ -13,7 +13,7 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'plasticboy/vim-markdown'
 autocmd FileType markdown set nofoldenable
 Plug 'rust-lang/rust.vim'
-Plug 'peng1999/vim-cargo'
+Plug 'timonv/vim-cargo'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'itchyny/vim-haskell-indent'
 Plug 'dag/vim-fish'
