@@ -13,7 +13,9 @@ if has('unix')
     set shell=/bin/bash
 end
 
-source $VIMRUNTIME/vimrc_example.vim
+if !has('nvim')
+    source $VIMRUNTIME/vimrc_example.vim
+end
 source $VIMRUNTIME/mswin.vim
 
 set shiftwidth=4
@@ -25,16 +27,19 @@ set autowrite
 
 set mouse=a
 
-" Backup and undofile directory:
-" - Make `.` the least choice
-" - Make ~/tmp/vimundo and ~/tmp/vimbackup the default on Linux
-" - Never use `~` on Linux
-set backupdir-=.
-set backupdir-=~/
-set backupdir+=.
-let &undodir=&backupdir
-set undodir^=~/tmp/vimundo
-set backupdir^=~/tmp/vimbackup
+" Neovim has a good default
+if !has('nvim')
+    " Backup and undofile directory:
+    " - Make `.` the least choice
+    " - Make ~/tmp/vimundo and ~/tmp/vimbackup the default on Linux
+    " - Never use `~` on Linux
+    set backupdir-=.
+    set backupdir-=~/
+    set backupdir+=.
+    let &undodir=&backupdir
+    set undodir^=~/tmp/vimundo
+    set backupdir^=~/tmp/vimbackup
+end
 
 colorscheme torte
 
@@ -57,7 +62,7 @@ unmap <C-Y>
 iunmap <C-Y>
 vunmap <BS>
 " If in TUI
-if !has("gui_running")
+if !has("gui_running") && has("clipboard")
     unmap <C-C>
     unmap <C-V>
     iunmap <C-V>
