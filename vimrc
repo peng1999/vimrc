@@ -16,17 +16,21 @@ end
 if !has('nvim')
     source $VIMRUNTIME/vimrc_example.vim
 end
-source $VIMRUNTIME/mswin.vim
+" source $VIMRUNTIME/mswin.vim
+behave mswin
 
 set shiftwidth=4
 set expandtab
 set smarttab
 set number
+set relativenumber
 set selectmode-=mouse
 set autowrite
+set undofile
 
 set mouse=a
 
+set undodir+=.
 " Neovim has a good default
 if !has('nvim')
     " Backup and undofile directory:
@@ -56,17 +60,23 @@ augroup END
 let mapleader="\<Space>"
 noremap <Leader><Leader> :noh<CR>
 noremap <Leader>b :buf#<CR>
+noremap <Leader>t :buf term://<CR>
 
-" I don't want these maps in mswin.vim
-unmap <C-Y>
-iunmap <C-Y>
-vunmap <BS>
 " If in TUI
-if !has("gui_running") && has("clipboard")
-    unmap <C-C>
-    unmap <C-V>
-    iunmap <C-V>
-    unmap <C-Q>
+if has("gui_running") 
+    " && has("clipboard")
+    " CTRL-X and SHIFT-Del are Cut
+    vnoremap <C-X> "+x
+
+    " CTRL-C and CTRL-Insert are Copy
+    vnoremap <C-C> "+y
+
+    " CTRL-V and SHIFT-Insert are Paste
+    map <C-V> "+gP
+    cmap <C-V> <C-R>+
+
+    " Use CTRL-Q to do what CTRL-V used to do
+    noremap <C-Q> <C-V>
 endif
 
 " <C-Y> and <C-E> are also available in insert mode.
@@ -86,6 +96,7 @@ if has("nvim")
     augroup terminal
         autocmd!
         autocmd TermOpen * setlocal nonumber
+        autocmd TermOpen * setlocal norelativenumber
         autocmd TermOpen * noremap <buffer> <C-P> i<C-P><C-\><C-N>
         autocmd TermOpen * noremap <buffer> <C-N> i<C-N><C-\><C-N>
         autocmd TermOpen * noremap <buffer> <CR> i<CR><C-\><C-N>G
