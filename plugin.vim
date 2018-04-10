@@ -35,7 +35,10 @@ let $FZF_DEFAULT_COMMAND = 'rg --files'
 map gz :FZF<CR>
 
 if has('nvim')
-    Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'autozimu/LanguageClient-neovim', {
+                \ 'branch': 'next',
+                \ 'do': 'bash install.sh'
+                \ }
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 
@@ -47,8 +50,12 @@ if has('nvim')
                 \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
                 \ 'python': ['pyls'],
                 \ }
+                " \ 'cpp': ['cquery', '--log-file=/tmp/cquery.log'],
+                " \ 'c': ['cquery', '--log-file=/tmp/cquery.log'],
+
     " Automatically start language servers.
     let g:LanguageClient_autoStart = 1
+    let g:LanguageClient_loadSettings = 1
     let g:deoplete#enable_at_startup = 1
 
     nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
