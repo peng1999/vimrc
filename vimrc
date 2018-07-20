@@ -23,7 +23,8 @@ set shiftwidth=4
 set expandtab
 set smarttab
 set number
-set relativenumber
+" Not using relativenumber
+" set relativenumber
 set selectmode-=mouse
 set autowrite
 set undofile
