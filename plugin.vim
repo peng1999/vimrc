@@ -7,6 +7,12 @@ Plug 'raimondi/delimitmate'
 autocmd FileType cpp,rust let b:delimitMate_expand_cr = 1
 Plug 'tomtom/tcomment_vim'
 
+if has('unix')
+    Plug 'lilydjwg/fcitx.vim'
+    if !has('gui')
+        set ttimeoutlen=100
+    end
+end
 
 Plug 'Chiel92/vim-autoformat'
 
@@ -24,15 +30,16 @@ if !has('nvim')
     let g:syntastic_rust_checkers = ['cargo']
     let g:syntastic_cpp_compiler_options = ' -std=c++1y'
     let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
+
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    " Respect gitignore
+    " use ag
+    "let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+    " use rg
+    let $FZF_DEFAULT_COMMAND = 'rg --files'
+    map gz :FZF<CR>
 end
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Respect gitignore
-" use ag
-"let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-" use rg
-let $FZF_DEFAULT_COMMAND = 'rg --files'
-map gz :FZF<CR>
 
 if has('nvim')
     Plug 'autozimu/LanguageClient-neovim', {
