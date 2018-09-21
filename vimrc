@@ -13,10 +13,11 @@ if has('unix')
     set shell=/bin/bash
 end
 
+" Neovim has a good default and need not vimrc_example.vim
 if !has('nvim')
     source $VIMRUNTIME/vimrc_example.vim
 end
-" source $VIMRUNTIME/mswin.vim
+
 behave mswin
 
 set shiftwidth=4
@@ -59,8 +60,11 @@ augroup cppabbr
 augroup END
 
 let mapleader="\<Space>"
+" No highlight
 noremap <Leader><Leader> :noh<CR>
+" Previous buffer
 noremap <Leader>b :buf#<CR>
+" Terminal buffer
 noremap <Leader>t :buf term://<CR>
 
 " If in TUI
@@ -93,11 +97,14 @@ snoremap <C-A> <C-C>ggV<C-O>G
 xnoremap <C-A> <C-C>ggVG
 
 augroup session
+    autocmd!
+    " Recover cursor location when start
     autocmd BufReadPost *
                 \ if line("'\"") > 1 && line("'\"") <= line("$") |
                 \   exe "normal! g`\"" |
                 \ endif
 augroup END
+
 
 if has("nvim")
     tnoremap <ESC> <C-\><C-N>
@@ -111,12 +118,13 @@ if has("nvim")
     augroup END
 end
 
+" Use `rg` as grep program
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --no-heading
     set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
 
-" Auto Compile
+" Quick Compile
 if has("win32")
     noremap <F5> :!%<<CR>
     noremap <F10> :!g++ % -o %<.exe<CR>
@@ -132,9 +140,6 @@ if has("win32")
 
     " GUI font
     set guifont=Courier_New:h15:cANSI
-
-    " I use DEV-CPP's mingw32-make
-    "set makeprg=mingw32-make
 
     set diffexpr=MyDiff()
 endif
