@@ -92,6 +92,13 @@ onoremap <C-A> <C-C>ggV<C-O>G
 snoremap <C-A> <C-C>ggV<C-O>G
 xnoremap <C-A> <C-C>ggVG
 
+augroup session
+    autocmd BufReadPost *
+                \ if line("'\"") > 1 && line("'\"") <= line("$") |
+                \   exe "normal! g`\"" |
+                \ endif
+augroup END
+
 if has("nvim")
     tnoremap <ESC> <C-\><C-N>
     augroup terminal
