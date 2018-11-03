@@ -24,6 +24,9 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'itchyny/vim-haskell-indent'
 Plug 'dag/vim-fish'
 Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do': 'make fsautocomplete' }
+Plug 'jvoorhis/coq.vim'
+Plug 'let-def/vimbufsync' " required by coquille
+Plug 'the-lambda-church/coquille'
 
 if !has('nvim')
     Plug 'vim-syntastic/syntastic'
@@ -56,9 +59,19 @@ if has('nvim')
     let g:LanguageClient_serverCommands = {
                 \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
                 \ 'python': ['pyls'],
+                \ 'cpp': ['ccls', '--log-file=/tmp/cc.log'],
+                \ 'c': ['ccls', '--log-file=/tmp/cc.log'],
                 \ }
-                " \ 'cpp': ['cquery', '--log-file=/tmp/cquery.log'],
-                " \ 'c': ['cquery', '--log-file=/tmp/cquery.log'],
+
+    for [lag, cmd] in items(g:LanguageClient_serverCommands)
+        if executable(cmd[0])
+            execute 'autocmd FileType ' . lag . ' nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>'
+        else
+            unlet g:LanguageClient_serverCommands[lag]
+        endif
+    endfor
+
+    let g:LanguageClient_settingsPath = '/home/$USER/.config/nvim/settings.json'
 
     " Automatically start language servers.
     let g:LanguageClient_autoStart = 1
@@ -66,8 +79,8 @@ if has('nvim')
     let g:deoplete#enable_at_startup = 1
 
     nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-    nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+    " nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+    nnoremap <silent> <F6> :call LanguageClient_textDocument_rename()<CR>
 end
 
 call plug#end()
