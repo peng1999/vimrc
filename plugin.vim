@@ -27,6 +27,7 @@ Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do': 'make fsautocomplete' }
 Plug 'jvoorhis/coq.vim'
 Plug 'let-def/vimbufsync' " required by coquille
 Plug 'the-lambda-church/coquille'
+Plug 'justinmk/vim-syntax-extra'
 
 if !has('nvim')
     Plug 'vim-syntastic/syntastic'
