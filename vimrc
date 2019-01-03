@@ -31,6 +31,7 @@ set autowrite
 set undofile
 
 set mouse=a
+set completeopt-=preview
 
 set undodir+=.
 " Neovim has a good default

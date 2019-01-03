@@ -28,6 +28,7 @@ Plug 'jvoorhis/coq.vim'
 Plug 'let-def/vimbufsync' " required by coquille
 Plug 'the-lambda-church/coquille'
 Plug 'justinmk/vim-syntax-extra'
+Plug 'Shougo/vinarise.vim'
 
 if !has('nvim')
     Plug 'vim-syntastic/syntastic'
@@ -73,6 +74,7 @@ if has('nvim')
     endfor
 
     let g:LanguageClient_settingsPath = '/home/$USER/.config/nvim/settings.json'
+    let g:LanguageClient_hoverPreview = 'Never'
 
     " Automatically start language servers.
     let g:LanguageClient_autoStart = 1
