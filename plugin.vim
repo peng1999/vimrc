@@ -1,34 +1,24 @@
 call plug#begin('~/.vim/bundle')
 
-Plug 'tpope/vim-fugitive'
-
+"--------------
+" Generic edit
+"--------------
 Plug 'godlygeek/tabular'
 Plug 'raimondi/delimitmate'
-autocmd FileType cpp,rust let b:delimitMate_expand_cr = 1
+let b:delimitMate_expand_cr = 1
 Plug 'tomtom/tcomment_vim'
-
-if has('unix')
-    Plug 'lilydjwg/fcitx.vim'
-    if !has('gui')
-        set ttimeoutlen=100
-    end
-end
 
 Plug 'Chiel92/vim-autoformat'
 
-Plug 'plasticboy/vim-markdown'
-autocmd FileType markdown set nofoldenable
-Plug 'rust-lang/rust.vim'
-Plug 'timonv/vim-cargo'
-Plug 'neovimhaskell/haskell-vim'
-Plug 'itchyny/vim-haskell-indent'
-Plug 'dag/vim-fish'
-Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do': 'make fsautocomplete' }
-Plug 'jvoorhis/coq.vim'
-Plug 'let-def/vimbufsync' " required by coquille
-Plug 'the-lambda-church/coquille'
-Plug 'justinmk/vim-syntax-extra'
-Plug 'Shougo/vinarise.vim'
+Plug 'vim-airline/vim-airline'
+" call airline#parts#define_minwidth('mode', 6)
+let g:airline#extensions#default#section_truncate_width = {
+    \ 'b': 79,
+    \ 'x': 60,
+    \ 'y': 88,
+    \ 'warning': 80,
+    \ 'error': 80,
+    \ }
 
 if !has('nvim')
     Plug 'vim-syntastic/syntastic'
@@ -38,8 +28,6 @@ if !has('nvim')
 
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     " Respect gitignore
-    " use ag
-    "let $FZF_DEFAULT_COMMAND = 'ag -g ""'
     " use rg
     let $FZF_DEFAULT_COMMAND = 'rg --files'
     map gz :FZF<CR>
@@ -47,15 +35,32 @@ end
 
 
 if has('nvim')
-    Plug 'autozimu/LanguageClient-neovim', {
-                \ 'branch': 'next',
-                \ 'do': 'bash install.sh'
-                \ }
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 
     map gz :Denite file_rec<CR>
     map gZ :Denite buffer<CR>
+
+    " Plug 'zchee/deoplete-go'
+end
+
+"----------------
+" External tools
+"----------------
+Plug 'tpope/vim-fugitive'
+
+if has('unix')
+    Plug 'lilydjwg/fcitx.vim'
+    if !has('gui')
+        set ttimeoutlen=100
+    end
+end
+
+if has('nvim')
+    Plug 'autozimu/LanguageClient-neovim', {
+                \ 'branch': 'next',
+                \ 'do': 'bash install.sh'
+                \ }
 
     set hidden
     let g:LanguageClient_serverCommands = {
@@ -63,6 +68,8 @@ if has('nvim')
                 \ 'python': ['pyls'],
                 \ 'cpp': ['ccls', '--log-file=/tmp/cc.log'],
                 \ 'c': ['ccls', '--log-file=/tmp/cc.log'],
+                \ 'go': [$GOPATH . '/bin/bingo'],
+                \ 'julia': ['lsp.jl'],
                 \ }
 
     for [lag, cmd] in items(g:LanguageClient_serverCommands)
@@ -74,7 +81,6 @@ if has('nvim')
     endfor
 
     let g:LanguageClient_settingsPath = '/home/$USER/.config/nvim/settings.json'
-    let g:LanguageClient_hoverPreview = 'Never'
 
     " Automatically start language servers.
     let g:LanguageClient_autoStart = 1
@@ -85,6 +91,27 @@ if has('nvim')
     " nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
     nnoremap <silent> <F6> :call LanguageClient_textDocument_rename()<CR>
 end
+
+"------------------
+" Language support
+"------------------
+
+Plug 'plasticboy/vim-markdown'
+autocmd FileType markdown set nofoldenable
+Plug 'rust-lang/rust.vim'
+Plug 'timonv/vim-cargo'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'neovimhaskell/haskell-vim'
+Plug 'itchyny/vim-haskell-indent'
+Plug 'dag/vim-fish'
+Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do': 'make fsautocomplete' }
+Plug 'jvoorhis/coq.vim'
+Plug 'let-def/vimbufsync' " required by coquille
+Plug 'the-lambda-church/coquille'
+Plug 'justinmk/vim-syntax-extra'
+Plug 'JuliaEditorSupport/julia-vim'
+let g:default_julia_version = '1.1'
+Plug 'Shougo/vinarise.vim'
 
 call plug#end()
 

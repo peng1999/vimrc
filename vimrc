@@ -50,6 +50,11 @@ end
 
 colorscheme torte
 
+augroup golang
+    autocmd!
+    autocmd FileType go set noexpandtab shiftwidth=8
+augroup END
+
 augroup cppabbr
     autocmd!
     " Abbrevation for `long *`
