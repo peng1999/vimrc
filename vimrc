@@ -1,4 +1,4 @@
-set nocompatible              " be IMproved, required
+set nocompatible              " Required only in Vim, not Neovim
 
 if has('win32') || has ('win64')
     let $VIMHOME = $VIM . "/vimfiles"
@@ -9,7 +9,7 @@ if filereadable($VIMHOME . "/plugin.vim")
     source $VIMHOME/plugin.vim
 end
 
-if has('unix')
+if has('unix') && $SHELL =~ "fish"
     set shell=/bin/bash
 end
 
@@ -24,14 +24,13 @@ set shiftwidth=4
 set expandtab
 set smarttab
 set number
-" Not using relativenumber
-" set relativenumber
 set selectmode-=mouse
 set autowrite
 set undofile
 
 set mouse=a
-set completeopt-=preview
+
+colorscheme slate
 
 set undodir+=.
 " Neovim has a good default
@@ -48,10 +47,10 @@ if !has('nvim')
     set backupdir^=~/tmp/vimbackup
 end
 
-colorscheme torte
 
 augroup golang
     autocmd!
+    " GoLang programmer always use tabs
     autocmd FileType go set noexpandtab shiftwidth=8
 augroup END
 
@@ -72,8 +71,11 @@ noremap <Leader><Leader> :noh<CR>
 noremap <Leader>b :buf#<CR>
 " Terminal buffer
 noremap <Leader>t :buf term://<CR>
+" Clipboard
+noremap <Leader>y "+y
+noremap <Leader>p "+p
 
-" If in TUI
+" If in GUI
 if has("gui_running") 
     " && has("clipboard")
     " CTRL-X and SHIFT-Del are Cut
@@ -93,14 +95,6 @@ endif
 " <C-Y> and <C-E> are also available in insert mode.
 inoremap <C-Y> <C-O><C-Y>
 inoremap <C-E> <C-O><C-E>
-
-" CTRL-A is Visual all
-noremap <C-A> ggVG
-inoremap <C-A> <C-O>gg<C-O>V<C-O>G
-cnoremap <C-A> <C-C>ggV<C-O>G
-onoremap <C-A> <C-C>ggV<C-O>G
-snoremap <C-A> <C-C>ggV<C-O>G
-xnoremap <C-A> <C-C>ggVG
 
 augroup session
     autocmd!

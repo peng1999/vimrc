@@ -86,6 +86,7 @@ if has('nvim')
     let g:LanguageClient_autoStart = 1
     let g:LanguageClient_loadSettings = 1
     let g:deoplete#enable_at_startup = 1
+    let g:LanguageClient_useFloatingHover = 1
 
     nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
     " nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
