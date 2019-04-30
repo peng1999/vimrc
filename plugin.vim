@@ -5,7 +5,7 @@ call plug#begin('~/.vim/bundle')
 "--------------
 Plug 'godlygeek/tabular'
 Plug 'raimondi/delimitmate'
-let b:delimitMate_expand_cr = 1
+let delimitMate_expand_cr = 1
 Plug 'tomtom/tcomment_vim'
 
 Plug 'Chiel92/vim-autoformat'
@@ -40,6 +40,9 @@ if has('nvim')
 
     map gz :Denite file_rec<CR>
     map gZ :Denite buffer<CR>
+    map gs :Denite documentSymbol<CR>
+    map gS :Denite workspaceSymbol<CR>
+    map ga :Denite codeAction<CR>
 
     " Plug 'zchee/deoplete-go'
 end

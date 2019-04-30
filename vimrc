@@ -24,10 +24,10 @@ set shiftwidth=4
 set expandtab
 set smarttab
 set number
-set selectmode-=mouse
 set autowrite
 set undofile
-
+set formatoptions+=mB
+set selectmode-=mouse
 set mouse=a
 
 colorscheme slate
@@ -76,7 +76,7 @@ noremap <Leader>y "+y
 noremap <Leader>p "+p
 
 " If in GUI
-if has("gui_running") 
+if has("gui_running")
     " && has("clipboard")
     " CTRL-X and SHIFT-Del are Cut
     vnoremap <C-X> "+x
