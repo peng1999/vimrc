@@ -74,6 +74,7 @@ noremap <Leader>t :buf term://<CR>
 " Clipboard
 noremap <Leader>y "+y
 noremap <Leader>p "+p
+noremap <Leader>P "+P
 
 " If in GUI
 if has("gui_running")
