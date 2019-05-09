@@ -1,9 +1,17 @@
 set nocompatible              " Required only in Vim, not Neovim
 
-if has('win32') || has ('win64')
-    let $VIMHOME = $VIM . "/vimfiles"
+" mapleader should put before source plugin.vim
+let mapleader="\<Space>"
+
+" Find config directory
+if has('nvim')
+    let $VIMHOME = stdpath('config')
 else
-    let $VIMHOME = $HOME . "/.vim"
+    if has('win32') || has ('win64')
+        let $VIMHOME = $VIM . "/vimfiles"
+    else
+        let $VIMHOME = $HOME . "/.vim"
+    endif
 endif
 if filereadable($VIMHOME . "/plugin.vim")
     source $VIMHOME/plugin.vim
@@ -30,7 +38,16 @@ set formatoptions+=mB
 set selectmode-=mouse
 set mouse=a
 
-colorscheme slate
+set updatetime=300
+" ignore if onedark theme is not installed
+try
+    colorscheme onedark
+    highlight CocHighlightText guibg=#505050
+catch
+endtry
+
+" netrw setting
+let g:netrw_winsize = 25
 
 set undodir+=.
 " Neovim has a good default
@@ -64,7 +81,6 @@ augroup cppabbr
     autocmd FileType cpp abbreviate itn int
 augroup END
 
-let mapleader="\<Space>"
 " No highlight
 noremap <Leader><Leader> :noh<CR>
 " Previous buffer

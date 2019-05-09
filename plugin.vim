@@ -10,6 +10,7 @@ Plug 'tomtom/tcomment_vim'
 
 Plug 'Chiel92/vim-autoformat'
 
+
 Plug 'vim-airline/vim-airline'
 " call airline#parts#define_minwidth('mode', 6)
 let g:airline#extensions#default#section_truncate_width = {
@@ -20,32 +21,31 @@ let g:airline#extensions#default#section_truncate_width = {
     \ 'error': 80,
     \ }
 
-if !has('nvim')
-    Plug 'vim-syntastic/syntastic'
-    let g:syntastic_rust_checkers = ['cargo']
-    let g:syntastic_cpp_compiler_options = ' -std=c++1y'
-    let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
-
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    " Respect gitignore
-    " use rg
-    let $FZF_DEFAULT_COMMAND = 'rg --files'
-    map gz :FZF<CR>
+Plug 'joshdick/onedark.vim'
+if has('termguicolors')
+    set termguicolors
 end
+let g:onedark_terminal_italics = 1
+let g:airline_theme = 'onedark'
 
 
-if has('nvim')
+let g:use_coc_nvim = 1
+let g:use_languageclient = !g:use_coc_nvim
+
+
+if g:use_languageclient
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-
-    map gz :Denite file_rec<CR>
-    map gZ :Denite buffer<CR>
-    map gs :Denite documentSymbol<CR>
-    map gS :Denite workspaceSymbol<CR>
-    map ga :Denite codeAction<CR>
-
-    " Plug 'zchee/deoplete-go'
 end
+
+Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+
+map gz :Denite file_rec<CR>
+map gZ :Denite buffer<CR>
+map gs :Denite documentSymbol<CR>
+map gS :Denite workspaceSymbol<CR>
+map ga :Denite codeAction<CR>
+
+" Plug 'zchee/deoplete-go'
 
 "----------------
 " External tools
@@ -59,7 +59,56 @@ if has('unix')
     end
 end
 
-if has('nvim')
+if g:use_coc_nvim
+    set hidden
+
+    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+    autocmd FileType json syntax match Comment +\/\/.\+$+
+
+    " Use <c-space> to trigger completion.
+    inoremap <silent><expr> <c-space> coc#refresh()
+
+    " Use `[c` and `]c` to navigate diagnostics
+    nmap <silent> [c <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+    " Remap keys for gotos
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+
+    " Use K to show documentation in preview window
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    function! s:show_documentation()
+        if (index(['vim','help'], &filetype) >= 0)
+            execute 'h '.expand('<cword>')
+        else
+            call CocAction('doHover')
+        endif
+    endfunction
+
+    " Highlight symbol under cursor on CursorHold
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+
+    " Remap for rename current word
+    nmap <Leader>rn <Plug>(coc-rename)
+
+    " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+    xmap <Leader>a  <Plug>(coc-codeaction-selected)
+    nmap <Leader>a  <Plug>(coc-codeaction-selected)
+
+    " Remap for do codeAction of current line
+    nmap <Leader>ac  <Plug>(coc-codeaction)
+    " Fix autofix problem of current line
+    nmap <Leader>qf  <Plug>(coc-fix-current)
+
+    let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+    let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
+end
+
+if g:use_languageclient
     Plug 'autozimu/LanguageClient-neovim', {
                 \ 'branch': 'next',
                 \ 'do': 'bash install.sh'
@@ -100,19 +149,13 @@ end
 " Language support
 "------------------
 
+Plug 'sheerun/vim-polyglot' " for multi-language highlight
+Plug 'justinmk/vim-syntax-extra' " for Flex and Bison highlight
 Plug 'plasticboy/vim-markdown'
 autocmd FileType markdown set nofoldenable
 Plug 'rust-lang/rust.vim'
 Plug 'timonv/vim-cargo'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'neovimhaskell/haskell-vim'
-Plug 'itchyny/vim-haskell-indent'
-Plug 'dag/vim-fish'
-Plug 'fsharp/vim-fsharp', { 'for': 'fsharp', 'do': 'make fsautocomplete' }
-Plug 'jvoorhis/coq.vim'
-Plug 'let-def/vimbufsync' " required by coquille
-Plug 'the-lambda-church/coquille'
-Plug 'justinmk/vim-syntax-extra'
 Plug 'JuliaEditorSupport/julia-vim'
 let g:default_julia_version = '1.1'
 Plug 'Shougo/vinarise.vim'
