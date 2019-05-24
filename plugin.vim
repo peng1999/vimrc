@@ -53,6 +53,8 @@ map ga :Denite codeAction<CR>
 "----------------
 Plug 'tpope/vim-fugitive'
 
+Plug 'w0rp/ale'
+
 if has('unix')
     Plug 'lilydjwg/fcitx.vim'
     if !has('gui')
