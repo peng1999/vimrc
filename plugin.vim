@@ -10,6 +10,7 @@ Plug 'tomtom/tcomment_vim'
 
 Plug 'Chiel92/vim-autoformat'
 
+Plug 'machakann/vim-highlightedyank'
 
 Plug 'vim-airline/vim-airline'
 " call airline#parts#define_minwidth('mode', 6)
@@ -159,6 +160,7 @@ Plug 'timonv/vim-cargo'
 Plug 'JuliaEditorSupport/julia-vim'
 let g:default_julia_version = '1.1'
 Plug 'Shougo/vinarise.vim'
+Plug 'ziglang/zig.vim'
 
 call plug#end()
 

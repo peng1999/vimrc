@@ -38,6 +38,10 @@ set formatoptions+=mB
 set selectmode-=mouse
 set mouse=a
 
+if has('nvim')
+    set wildoptions=pum
+end
+
 set updatetime=300
 " ignore if onedark theme is not installed
 try
