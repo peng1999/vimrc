@@ -1,5 +1,6 @@
-call plug#begin('~/.vim/bundle')
-
+if exists('g:layer_plugin_loaded')
+    finish
+end
 "--------------
 " Generic edit
 "--------------
@@ -11,23 +12,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'Chiel92/vim-autoformat'
 
 Plug 'machakann/vim-highlightedyank'
-
-Plug 'vim-airline/vim-airline'
-" call airline#parts#define_minwidth('mode', 6)
-let g:airline#extensions#default#section_truncate_width = {
-    \ 'b': 79,
-    \ 'x': 60,
-    \ 'y': 88,
-    \ 'warning': 80,
-    \ 'error': 80,
-    \ }
-
-Plug 'joshdick/onedark.vim'
-if has('termguicolors')
-    set termguicolors
-end
-let g:onedark_terminal_italics = 1
-let g:airline_theme = 'onedark'
+Plug 'vim-utils/vim-husk'
 
 
 let g:use_coc_nvim = 1
@@ -38,14 +23,6 @@ if g:use_languageclient
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 end
 
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-
-map gz :Denite file_rec<CR>
-map gZ :Denite buffer<CR>
-map gs :Denite documentSymbol<CR>
-map gS :Denite workspaceSymbol<CR>
-map ga :Denite codeAction<CR>
-
 " Plug 'zchee/deoplete-go'
 
 "----------------
@@ -53,7 +30,8 @@ map ga :Denite codeAction<CR>
 "----------------
 Plug 'tpope/vim-fugitive'
 
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
+" let g:airline#extensions#ale#enabled = 1
 
 if has('unix')
     Plug 'lilydjwg/fcitx.vim'
@@ -65,7 +43,7 @@ end
 if g:use_coc_nvim
     set hidden
 
-    Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+    Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
     autocmd FileType json syntax match Comment +\/\/.\+$+
 
     " Use <c-space> to trigger completion.
@@ -107,8 +85,9 @@ if g:use_coc_nvim
     " Fix autofix problem of current line
     nmap <Leader>qf  <Plug>(coc-fix-current)
 
-    let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
-    let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
+    " let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+    " let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
+    let airline#extensions#coc#error_symbol = 'Error:'
 end
 
 if g:use_languageclient
@@ -164,21 +143,3 @@ let g:default_julia_version = '1.1'
 Plug 'Shougo/vinarise.vim'
 Plug 'ziglang/zig.vim'
 
-call plug#end()
-
-if has('nvim')
-    call denite#custom#var('file_rec', 'command',
-                \ ['rg', '--files'])
-    call denite#custom#map(
-                \ 'insert',
-                \ '<C-N>',
-                \ '<denite:move_to_next_line>',
-                \ 'noremap'
-                \)
-    call denite#custom#map(
-                \ 'insert',
-                \ '<C-P>',
-                \ '<denite:move_to_previous_line>',
-                \ 'noremap'
-                \)
-end

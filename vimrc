@@ -37,18 +37,22 @@ set undofile
 set formatoptions+=mB
 set selectmode-=mouse
 set mouse=a
+set updatetime=300
+
+set pyxversion=3
 
 if has('nvim')
     set wildoptions=pum
 end
 
-set updatetime=300
-" ignore if onedark theme is not installed
-try
-    colorscheme onedark
-    highlight CocHighlightText guibg=#505050
-catch
-endtry
+call plug#begin('~/.vim/bundle')
+for s:layer in split(glob($VIMHOME . '/layers/*.vim'), '\n')
+    execute 'source' s:layer
+endfor
+call plug#end()
+for s:layer in split(glob($VIMHOME . '/layers/*.vim'), '\n')
+    execute 'source' s:layer
+endfor
 
 " netrw setting
 let g:netrw_winsize = 25
@@ -69,10 +73,16 @@ if !has('nvim')
 end
 
 
+augroup text
+    autocmd!
+    autocmd FileType text setlocal spell
+    autocmd FileType text setlocal textwidth=80
+augroup END
+
 augroup golang
     autocmd!
     " GoLang programmer always use tabs
-    autocmd FileType go set noexpandtab shiftwidth=8
+    autocmd FileType go setlocal noexpandtab shiftwidth=8
 augroup END
 
 augroup cppabbr
@@ -84,6 +94,10 @@ augroup cppabbr
     " Typo
     autocmd FileType cpp abbreviate itn int
 augroup END
+
+" Edit init file
+command EditInit :e $VIMHOME/init.vim
+command EditPlugin :e $VIMHOME/plugin.vim
 
 " No highlight
 noremap <Leader><Leader> :noh<CR>
@@ -133,6 +147,7 @@ if has("nvim")
         autocmd!
         autocmd TermOpen * setlocal nonumber
         autocmd TermOpen * setlocal norelativenumber
+        " <C-P> <C-N> and <C-R> works for normal mode in term
         autocmd TermOpen * noremap <buffer> <C-P> i<C-P><C-\><C-N>
         autocmd TermOpen * noremap <buffer> <C-N> i<C-N><C-\><C-N>
         autocmd TermOpen * noremap <buffer> <CR> i<CR><C-\><C-N>G
