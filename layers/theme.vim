@@ -1,6 +1,6 @@
 " The theme layer.
-if !exists('g:layer_theme_loaded')
-    let g:layer_theme_loaded = 1
+if index(g:rerun_layer, expand('<sfile>')) == -1
+    call add(g:rerun_layer, expand('<sfile>'))
     Plug 'vim-airline/vim-airline'
     Plug 'joshdick/onedark.vim'
 else

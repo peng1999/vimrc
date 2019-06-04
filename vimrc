@@ -45,14 +45,22 @@ if has('nvim')
     set wildoptions=pum
 end
 
-call plug#begin('~/.vim/bundle')
-for s:layer in split(glob($VIMHOME . '/layers/*.vim'), '\n')
-    execute 'source' s:layer
-endfor
-call plug#end()
-for s:layer in split(glob($VIMHOME . '/layers/*.vim'), '\n')
-    execute 'source' s:layer
-endfor
+if isdirectory($VIMHOME . '/layers')
+    let s:layerfiles = split(glob($VIMHOME . '/layers/*.vim'), '\n')
+    let g:rerun_layer = []
+
+    " A first pass to load plugins
+    call plug#begin('~/.vim/bundle')
+    for s:layer in s:layerfiles
+        execute 'source' s:layer
+    endfor
+    call plug#end()
+
+    " Some layer needs a second pass
+    for s:layer in g:rerun_layer
+        execute 'source' s:layer
+    endfor
+end
 
 " netrw setting
 let g:netrw_winsize = 25
@@ -182,26 +190,26 @@ endif
 
 " Diff in Windows
 function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let eq = ''
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      let cmd = '"' . $VIMRUNTIME . '\diff"'
-      let eq = '""'
+    let opt = '-a --binary '
+    if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+    if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+    let arg1 = v:fname_in
+    if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+    let arg2 = v:fname_new
+    if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+    let arg3 = v:fname_out
+    if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+    let eq = ''
+    if $VIMRUNTIME =~ ' '
+        if &sh =~ '\<cmd'
+            let cmd = '"' . $VIMRUNTIME . '\diff"'
+            let eq = '""'
+        else
+            let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+        endif
     else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+        let cmd = $VIMRUNTIME . '\diff'
     endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+    silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
 
