@@ -2,6 +2,9 @@
 Plug 'raimondi/delimitmate'
 let delimitMate_expand_cr = 1
 
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+
 Plug 'tomtom/tcomment_vim'
 
 Plug 'Chiel92/vim-autoformat'

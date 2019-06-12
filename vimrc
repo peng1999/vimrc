@@ -105,7 +105,7 @@ augroup END
 
 " Edit init file
 command EditInit :e $VIMHOME/init.vim
-command EditPlugin :e $VIMHOME/plugin.vim
+command EditLayers :e $VIMHOME/layers
 
 " No highlight
 noremap <Leader><Leader> :noh<CR>
