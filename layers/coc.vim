@@ -8,6 +8,10 @@ autocmd FileType json syntax match Comment +\/\/.\+$+
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
+" Use <cr> for comfirm completion
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
+                                           \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 " Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
@@ -43,6 +47,9 @@ nmap <Leader>a  <Plug>(coc-codeaction-selected)
 nmap <Leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
 nmap <Leader>qf  <Plug>(coc-fix-current)
+
+
+" let airline#extensions#coc#error_symbol = '💡'
 
 " Plug 'w0rp/ale'
 " let g:airline#extensions#ale#enabled = 1
