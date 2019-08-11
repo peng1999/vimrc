@@ -12,5 +12,6 @@ Plug 'JuliaEditorSupport/julia-vim'
 let g:default_julia_version = '1.1'
 Plug 'Shougo/vinarise.vim'
 Plug 'ziglang/zig.vim'
+Plug 'jvoorhis/coq.vim'
 
 Plug 'tpope/vim-fugitive'
