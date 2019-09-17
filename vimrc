@@ -38,6 +38,9 @@ set formatoptions+=mB
 set selectmode-=mouse
 set mouse=a
 set updatetime=300
+set smartcase
+
+set fileencodings=ucs-bom,utf-8,cp936,default,latin1
 
 set pyxversion=3
 
