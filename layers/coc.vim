@@ -5,6 +5,9 @@ set hidden
 Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
+noremap <Leader>f :CocList files<CR>
+noremap <Leader>u :CocList buffers<CR>
+
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
