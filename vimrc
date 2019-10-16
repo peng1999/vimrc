@@ -34,6 +34,7 @@ set smarttab
 set number
 set autowrite
 set undofile
+set backup
 set formatoptions+=mB
 set selectmode-=mouse
 set mouse=a
@@ -42,9 +43,11 @@ set smartcase
 
 set fileencodings=ucs-bom,utf-8,cp936,default,latin1
 
-set pyxversion=3
+if has('pythonx')
+    set pyxversion=3
+end
 
-if has('nvim')
+if has('nvim-0.4')
     set wildoptions=pum
 end
 
@@ -69,6 +72,7 @@ end
 let g:netrw_winsize = 25
 
 set undodir+=.
+set backupdir^=/tmp
 " Neovim has a good default
 if !has('nvim')
     " Backup and undofile directory:
@@ -80,7 +84,6 @@ if !has('nvim')
     set backupdir+=.
     let &undodir=&backupdir
     set undodir^=~/tmp/vimundo
-    set backupdir^=~/tmp/vimbackup
 end
 
 
