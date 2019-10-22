@@ -37,6 +37,7 @@ set undofile
 set backup
 set formatoptions+=mB
 set selectmode-=mouse
+set noshowmode
 set mouse=a
 set updatetime=300
 set smartcase
