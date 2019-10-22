@@ -13,10 +13,8 @@ else
         let $VIMHOME = $HOME . "/.vim"
     endif
 endif
-if filereadable($VIMHOME . "/plugin.vim")
-    source $VIMHOME/plugin.vim
-end
 
+" The Fish Shell is not compatible with some plugins.
 if has('unix') && $SHELL =~ "fish"
     set shell=/bin/bash
 end
@@ -52,6 +50,7 @@ if has('nvim-0.4')
     set wildoptions=pum
 end
 
+" Load plugins (in layer files)
 if isdirectory($VIMHOME . '/layers')
     let s:layerfiles = split(glob($VIMHOME . '/layers/*.vim'), '\n')
     let g:rerun_layer = []
@@ -131,6 +130,9 @@ noremap <Leader>t :buf term://<CR>
 noremap <Leader>y "+y
 noremap <Leader>p "+p
 noremap <Leader>P "+P
+
+cnoremap <C-P> <UP>
+cnoremap <C-N> <DOWN>
 
 " If in GUI
 if has("gui_running")
