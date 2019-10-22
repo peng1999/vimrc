@@ -72,8 +72,15 @@ end
 " netrw setting
 let g:netrw_winsize = 25
 
+" create a directory to hold backup files
+let s:backupdir = "/tmp/vimbackup-" . $USER
+if !isdirectory(s:backupdir)
+    echomsg "Creating " . s:backupdir
+    call mkdir(s:backupdir, "", 0700)
+end
+
 set undodir+=.
-set backupdir^=/tmp
+let &backupdir = s:backupdir . "," . &backupdir
 " Neovim has a good default
 if !has('nvim')
     " Backup and undofile directory:
