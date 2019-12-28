@@ -38,6 +38,7 @@ set selectmode-=mouse
 set noshowmode
 set mouse=a
 set updatetime=300
+set ignorecase
 set smartcase
 
 set fileencodings=ucs-bom,utf-8,cp936,default,latin1
@@ -51,12 +52,17 @@ if has('nvim-0.4')
 end
 
 " Load plugins (in layer files)
+if has('nvim')
+    let $PLUGINPATH = stdpath('data') . '/bundle'
+else
+    let $PLUGINPATH = '~/.vim/bundle'
+end
 if isdirectory($VIMHOME . '/layers')
     let s:layerfiles = split(glob($VIMHOME . '/layers/*.vim'), '\n')
     let g:rerun_layer = []
 
     " A first pass to load plugins
-    call plug#begin('~/.vim/bundle')
+    call plug#begin($PLUGINPATH)
     for s:layer in s:layerfiles
         execute 'source' s:layer
     endfor
@@ -93,6 +99,10 @@ if !has('nvim')
     set undodir^=~/tmp/vimundo
 end
 
+augroup filetype
+    autocmd!
+    autocmd BufRead,BufNewFile *.tikz    set filetype=tex
+augroup END
 
 augroup text
     autocmd!
@@ -228,4 +238,3 @@ function MyDiff()
     endif
     silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
-
