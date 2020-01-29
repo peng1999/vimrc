@@ -101,7 +101,8 @@ end
 
 augroup filetype
     autocmd!
-    autocmd BufRead,BufNewFile *.tikz    set filetype=tex
+    autocmd BufRead,BufNewFile *.tikz set filetype=tex
+    autocmd BufRead,BufNewFile *.tikz setlocal makeprg=tikzmk\ %\ -x
 augroup END
 
 augroup text
