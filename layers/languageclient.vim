@@ -1,6 +1,7 @@
 " Config for autozimu/LanguageClient-neovim
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'ncm2/float-preview.nvim'
 
 Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
@@ -31,7 +32,9 @@ let g:LanguageClient_settingsPath = '/home/$USER/.config/nvim/settings.json'
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_loadSettings = 1
 let g:deoplete#enable_at_startup = 1
-let g:LanguageClient_useFloatingHover = 1
+let g:float_preview#docked = 0
+
+set completeopt-=perview
 
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 " nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
