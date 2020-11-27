@@ -19,6 +19,7 @@ if has('termguicolors')
 end
 let g:onedark_terminal_italics = 1
 let g:airline_theme = 'onedark'
+let g:airline#extensions#csv#enabled = 1
 
 " ignore if onedark theme is not installed
 try

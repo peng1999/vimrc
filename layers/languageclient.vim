@@ -1,6 +1,18 @@
 " Config for autozimu/LanguageClient-neovim
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+
 Plug 'ncm2/float-preview.nvim'
 
 Plug 'autozimu/LanguageClient-neovim', {
@@ -10,7 +22,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 
 set hidden
 let g:LanguageClient_serverCommands = {
-            \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+            \ 'rust': ['rustup', 'run', 'nightly', 'rust-analyzer'],
             \ 'python': ['pyls'],
             \ 'cpp': ['ccls', '--log-file=/tmp/cc.log'],
             \ 'c': ['ccls', '--log-file=/tmp/cc.log'],
@@ -33,8 +45,6 @@ let g:LanguageClient_autoStart = 1
 let g:LanguageClient_loadSettings = 1
 let g:deoplete#enable_at_startup = 1
 let g:float_preview#docked = 0
-
-set completeopt-=perview
 
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 " nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
