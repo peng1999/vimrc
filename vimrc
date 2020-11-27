@@ -49,6 +49,7 @@ end
 
 if has('nvim-0.4')
     set wildoptions=pum
+    set inccommand=nosplit
 end
 
 " Load plugins (in layer files)
@@ -102,13 +103,14 @@ end
 augroup filetype
     autocmd!
     autocmd BufRead,BufNewFile *.tikz set filetype=tex
+    autocmd BufRead,BufNewFile *.tikz compiler tex
     autocmd BufRead,BufNewFile *.tikz setlocal makeprg=tikzmk\ %\ -x
+    autocmd BufRead,BufNewFile *.tex setlocal makeprg=latexmk
 augroup END
 
 augroup text
     autocmd!
-    autocmd FileType text setlocal spell
-    autocmd FileType text setlocal textwidth=80
+    autocmd FileType text,tex setlocal textwidth=80
 augroup END
 
 augroup golang
@@ -132,7 +134,9 @@ command EditInit :e $VIMHOME/init.vim
 command EditLayers :e $VIMHOME/layers
 
 " No highlight
-noremap <Leader><Leader> :noh<CR>
+noremap <Leader>n :noh<CR>
+" Close quickfix window
+noremap <Leader><Leader> :ccl<CR>
 " Previous buffer
 noremap <Leader>b :buf#<CR>
 " Terminal buffer
@@ -201,7 +205,7 @@ if has("win32")
     noremap <F10> :!g++ % -o %<.exe<CR>
 else
     noremap <F5> :!./%<.o<CR>
-    noremap <F10> :!g++ % -o %<.o<CR>
+    noremap <F10> :!g++ % -g -o %<.o<CR>
 endif
 
 " Windows only settings

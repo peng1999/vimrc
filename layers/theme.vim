@@ -27,6 +27,8 @@ try
     highlight CocHighlightText guibg=#505050
     highlight clear SpellBad
     highlight SpellBad gui=undercurl
+    " Fix wide character issue in alacritty
+    highlight Normal guibg=NONE
 catch
     echomsg 'theme failed to load'
 endtry
