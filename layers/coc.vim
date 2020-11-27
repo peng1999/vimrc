@@ -2,7 +2,7 @@
 
 set hidden
 
-Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
 noremap <Leader>f :CocList files<CR>
@@ -48,6 +48,8 @@ nmap <Leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
 nmap <Leader>ac  <Plug>(coc-codeaction)
+nmap <Leader>al  <Plug>(coc-codelens-action)
+nmap <Leader>cm  :CocCommand<CR>
 " Fix autofix problem of current line
 nmap <Leader>qf  <Plug>(coc-fix-current)
 
