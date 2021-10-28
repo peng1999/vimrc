@@ -17,7 +17,7 @@ Plug 'machakann/vim-highlightedyank'
 " Command mode
 Plug 'vim-utils/vim-husk'
 
-if has('unix')
+if executable("fcitx") || executable("fcitx5")
     Plug 'lilydjwg/fcitx.vim'
     let g:fcitx5_remote = 'fcitx5-remote'
     if !has('gui')
