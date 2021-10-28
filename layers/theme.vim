@@ -27,6 +27,7 @@ try
     highlight CocHighlightText guibg=#505050
     highlight clear SpellBad
     highlight SpellBad gui=undercurl
+    highlight GitGutter ctermfg=White guifg=#a0a0a0
     " Fix wide character issue in alacritty
     highlight Normal guibg=NONE
 catch

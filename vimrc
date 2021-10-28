@@ -102,6 +102,12 @@ end
 
 augroup filetype
     autocmd!
+    autocmd BufRead,BufNewFile *.s,*.S call dist#ft#FTasm()
+    autocmd BufRead,BufNewFile *.s,*.S execute 'set filetype=' . b:asmsyntax
+augroup END
+
+augroup tikz
+    autocmd!
     autocmd BufRead,BufNewFile *.tikz set filetype=tex
     autocmd BufRead,BufNewFile *.tikz compiler tex
     autocmd BufRead,BufNewFile *.tikz setlocal makeprg=tikzmk\ %\ -x

@@ -50,6 +50,7 @@ nmap <Leader>a  <Plug>(coc-codeaction-selected)
 nmap <Leader>ac  <Plug>(coc-codeaction)
 nmap <Leader>al  <Plug>(coc-codelens-action)
 nmap <Leader>cm  :CocCommand<CR>
+nmap <Leader>cl  :CocList
 " Fix autofix problem of current line
 nmap <Leader>qf  <Plug>(coc-fix-current)
 

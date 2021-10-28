@@ -6,6 +6,8 @@ au FileType verilog let b:delimitMate_quotes = "\" '"
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
+Plug 'tpope/vim-fugitive'
+
 Plug 'tomtom/tcomment_vim'
 
 Plug 'Chiel92/vim-autoformat'
@@ -17,6 +19,7 @@ Plug 'vim-utils/vim-husk'
 
 if has('unix')
     Plug 'lilydjwg/fcitx.vim'
+    let g:fcitx5_remote = 'fcitx5-remote'
     if !has('gui')
         set ttimeoutlen=100
     end
