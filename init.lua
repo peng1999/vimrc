@@ -16,9 +16,10 @@ require('packer').startup(function(use)
   require('treesitter')(p)
   require('lsp').init(p)
   require('nvim-cmp')(p)
-  --
+
   require('lang/lua')(p)
   require('lang/rust')(p)
+  require('lang/python')(p)
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

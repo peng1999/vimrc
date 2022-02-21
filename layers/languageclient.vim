@@ -23,7 +23,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 set hidden
 let g:LanguageClient_serverCommands = {
             \ 'rust': ['rustup', 'run', 'nightly', 'rust-analyzer'],
-            \ 'python': ['pyls'],
+            \ 'python': ['/home/pgw/.yarn/bin/pyright-langserver', '--stdio'],
             \ 'cpp': ['ccls', '--log-file=/tmp/cc.log'],
             \ 'c': ['ccls', '--log-file=/tmp/cc.log'],
             \ 'go': [$GOPATH . '/bin/bingo'],
