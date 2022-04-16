@@ -11,7 +11,7 @@ require('packer').startup(function(use)
   local p = use
 
   require('editor')(p)
-  require('telescope')(p)
+  require('fuzzyfinder')(p)
   require('git')(p)
   require('treesitter')(p)
   require('lsp').init(p)

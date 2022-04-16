@@ -40,8 +40,6 @@ function M.on_attach(client, bufnr)
 
   local util = require('util')
   local set_highlight = util.set_highlight
-  local augroup = util.augroup
-  local autocmd = util.autocmd
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -71,11 +69,18 @@ function M.on_attach(client, bufnr)
     set_highlight('LspReferenceRead', {cterm='bold', ctermbg='red', guibg='#505050'})
     set_highlight('LspReferenceText', {cterm='bold', ctermbg='red', guibg='#505050'})
     set_highlight('LspReferenceWrite', {cterm='bold', ctermbg='red', guibg='#505050'})
-    augroup('lsp_document_highlight', {
-      autocmd('CursorHold', '<buffer>', 'lua vim.lsp.buf.document_highlight()'),
-      autocmd('CursorMoved', '<buffer>', 'lua vim.lsp.buf.clear_references()'),
-      -- autocmd('CursorHold', '<buffer>', 'lua vim.diagnostic.open_float()'),
+    local group = vim.api.nvim_create_augroup('lsp_document_highlight', {})
+    vim.api.nvim_create_autocmd('CursorHold', {
+      pattern = '<buffer>',
+      callback = vim.lsp.buf.document_highlight,
+      group = group,
     })
+    vim.api.nvim_create_autocmd('CursorMoved', {
+      pattern = '<buffer>',
+      callback = vim.lsp.buf.clear_references,
+      group = group,
+    })
+    -- autocmd('CursorHold', '<buffer>', 'lua vim.diagnostic.open_float()'),
   end
 end
 

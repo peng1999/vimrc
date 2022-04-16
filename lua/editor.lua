@@ -71,18 +71,19 @@ return function(packer)
   vim.cmd 'filetype plugin on'
   vim.cmd 'filetype indent on'
 
-  local util = require('util')
-
   vim.g.mapleader = ' '
 
-  util.noremap('n', '<Leader>n', ':noh<CR>')
-  util.noremap('n', '<Leader>b', ':buf#<CR>')
+  vim.keymap.set('n', '<Leader>n', ':noh<CR>')
+  vim.keymap.set('n', '<Leader>b', ':buf#<CR>')
 
-  util.augroup('session', {
-    util.autocmd('BufReadPost', '*',
-      [[if line("'\"") > 1 && line("'\"") <= line("$") | ]] ..
-      [[  exe "normal! g`\"" | ]] ..
-      [[endif]]
-    ),
+  local session = vim.api.nvim_create_augroup('session', {})
+  vim.api.nvim_create_autocmd('BufReadPost', {
+    pattern = '*',
+    callback = function ()
+      if vim.fn.line([['"]]) > 1 and vim.fn.line([['"]]) <= vim.fn.line('$') then
+        vim.cmd('normal! g`"')
+      end
+    end,
+    group = session,
   })
 end

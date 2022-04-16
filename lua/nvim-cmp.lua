@@ -3,11 +3,17 @@ return function(packer)
   packer 'hrsh7th/vim-vsnip'
   packer 'hrsh7th/vim-vsnip-integ'
 
-  local util = require('util')
-  util.map('i', '<Tab>'  , "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)' : '<Tab>'", { expr = true })
-  util.map('s', '<Tab>'  , "vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)' : '<Tab>'", { expr = true })
-  util.map('i', '<S-Tab>', "vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'", { expr = true })
-  util.map('s', '<S-Tab>', "vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'", { expr = true })
+  local function jumpable(n)
+    return vim.fn['vsnip#jumpable'](n)
+  end
+  local function tab_fun()
+    return jumpable(1) and '<Plug>(vsnip-jump-next)' or '<Tab>'
+  end
+  local function stab_fun()
+    return jumpable(-1) and '<Plug>(vsnip-jump-prev)' or '<S-Tab>'
+  end
+  vim.keymap.set({'i', 's'}, '<Tab>', tab_fun, { expr = true, remap = true })
+  vim.keymap.set({'i', 's'}, '<S-Tab>', stab_fun, { expr = true, remap = true })
 
   packer 'hrsh7th/cmp-nvim-lsp'
   packer 'hrsh7th/cmp-buffer'
@@ -31,7 +37,7 @@ return function(packer)
             -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
           end,
         },
-        mapping = {
+        mapping = cmp.mapping.preset.insert {
           ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
           ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
           ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
@@ -62,6 +68,7 @@ return function(packer)
 
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline {},
         sources = cmp.config.sources({
           { name = 'path' }
         }, {

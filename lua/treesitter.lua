@@ -4,7 +4,7 @@ return function(packer)
     run = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup {
-        ensure_installed = 'maintained',
+        ensure_installed = {'c', 'cpp', 'cuda', 'lua', 'rust', 'python'},
         highlight = {
           enable = true,
         },
