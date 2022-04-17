@@ -1,5 +1,7 @@
 return function(packer)
-  if vim.fn.executable('lua-language-server') == 0 then
+  local util = require('util')
+  if not util.executable('lua-language-server') then
+    util.buf_msg_ft('*.lua', 'install lua-language-server to enable LSP', 'lua')
     return
   end
 

@@ -1,5 +1,12 @@
 return function(packer)
+  -- basic rust support
   packer 'rust-lang/rust.vim'
+
+  local util = require('util')
+  if not util.executable('rustup') then
+    util.buf_msg_ft('*.rs', 'rustup not found, rust-tools will not load', 'rust')
+    return
+  end
 
   packer {
     'simrat39/rust-tools.nvim',

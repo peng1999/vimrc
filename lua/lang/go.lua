@@ -6,22 +6,19 @@ return function(packer)
     group = group,
   })
 
-  local candidates = { 'gopls', vim.env.GOPATH .. '/bin/gopls' }
+  local util = require('util')
+  local candidates = { 'gopls', (vim.env.GOPATH or '') .. '/bin/gopls' }
   local path = ''
 
   for _, p in ipairs(candidates) do
-    if vim.fn.executable(p) == 1 then
+    if util.executable(p) then
       path = p
       break
     end
   end
 
   if path == '' then
-    vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
-      pattern = '*.go',
-      callback = function() print('install gopls to enable LSP') end,
-      group = group,
-    })
+    util.buf_msg_ft('*.go', 'install gopls to enable LSP', group)
     return
   end
 

@@ -1,5 +1,7 @@
 return function(packer)
-  if vim.fn.executable('pyright-langserver') == 0 then
+  local util = require('util')
+  if not util.executable('pyright-langserver') then
+    util.buf_msg_ft('*.py', 'install pyright-langserver to enable LSP', 'py')
     return
   end
 
