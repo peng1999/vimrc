@@ -20,6 +20,7 @@ require('packer').startup(function(use)
   require('lang/lua')(p)
   require('lang/rust')(p)
   require('lang/python')(p)
+  require('lang/go')(p)
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
