@@ -10,6 +10,7 @@ return function(packer)
           hunk = { "", "" },
         }
       }
-    end
+    end,
+    cmd = 'Neogit',
   }
 end

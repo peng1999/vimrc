@@ -78,8 +78,8 @@ return function(packer)
 
   vim.g.mapleader = ' '
 
-  vim.keymap.set('n', '<Leader>n', ':noh<CR>')
-  vim.keymap.set('n', '<Leader>b', ':buf#<CR>')
+  vim.keymap.set('n', '<Leader>n', '<Cmd>noh<CR>')
+  vim.keymap.set('n', '<Leader>b', '<Cmd>buf#<CR>')
 
   local session = vim.api.nvim_create_augroup('session', {})
   vim.api.nvim_create_autocmd('BufReadPost', {
