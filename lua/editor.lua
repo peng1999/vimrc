@@ -32,7 +32,12 @@ return function(packer)
     end
   }
 
-  packer 'tomtom/tcomment_vim'
+  packer {
+    'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end
+  }
 
   packer 'vim-utils/vim-husk'
 

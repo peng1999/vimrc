@@ -1,5 +1,4 @@
 return function(packer)
-  -- packer 'tpope/vim-fugitive' -- git
   packer {
     'TimUntersberger/neogit',
     requires = 'nvim-lua/plenary.nvim',
