@@ -4,7 +4,7 @@ return function(packer)
   packer 'hrsh7th/vim-vsnip-integ'
 
   local function jumpable(n)
-    return vim.fn['vsnip#jumpable'](n)
+    return vim.fn['vsnip#jumpable'](n) == 1
   end
   local function tab_fun()
     return jumpable(1) and '<Plug>(vsnip-jump-next)' or '<Tab>'
