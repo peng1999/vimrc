@@ -1,27 +1,6 @@
 return function(packer)
   packer 'tpope/vim-sensible'
 
-  packer {
-    'vim-airline/vim-airline',
-    requires = {
-      'vim-airline/vim-airline-themes',
-    },
-    config = function()
-      vim.g.airline_theme = 'lucius'
-      vim.g['airline#extensions#csv#enabled'] = 1
-    end,
-  }
-
-  packer {
-    'chriskempson/vim-tomorrow-theme',
-    config = function()
-      vim.cmd 'set termguicolors'
-      vim.cmd 'colorscheme Tomorrow-Night'
-      vim.cmd 'highlight Normal guibg=NONE' -- This line does not work, why?
-      vim.cmd 'highlight LspSignatureActiveParameter guifg=NONE ctermfg=NONE guibg=#1d1f21 ctermbg=53 gui=Bold,underline,Italic cterm=Bold,underline,Italic guisp=#fbec9f'
-    end,
-  }
-
   packer 'tpope/vim-surround'
   packer 'tpope/vim-repeat'
 
