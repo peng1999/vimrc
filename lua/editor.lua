@@ -19,6 +19,7 @@ return function(packer)
   }
 
   packer 'vim-utils/vim-husk'
+  packer 'machakann/vim-highlightedyank'
 
   -- Options
   vim.opt.shiftwidth = 2
@@ -58,8 +59,21 @@ return function(packer)
   vim.g.mapleader = ' '
 
   vim.keymap.set('n', '<Leader>n', '<Cmd>noh<CR>')
+  vim.keymap.set('n', '<Leader><Leader>', '<Cmd>ccl<CR>')
   vim.keymap.set('n', '<Leader>b', '<Cmd>buf#<CR>')
+  vim.keymap.set('n', '<Leader>t', '<Cmd>buf term://<CR>')
+  -- clipboard
+  vim.keymap.set('n', '<Leader>y', '"+y')
+  vim.keymap.set('n', '<Leader>p', '"+p')
+  vim.keymap.set('n', '<Leader>P', '"+P')
 
+  vim.keymap.set({'n', 'v'}, 'j', 'gj')
+  vim.keymap.set({'n', 'v'}, 'k', 'gk')
+
+  vim.keymap.set('c', '<C-P>', '<Up>')
+  vim.keymap.set('c', '<C-N>', '<Down>')
+
+  -- restore last edit position
   local session = vim.api.nvim_create_augroup('session', {})
   vim.api.nvim_create_autocmd('BufReadPost', {
     pattern = '*',
