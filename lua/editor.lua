@@ -41,10 +41,17 @@ return function(packer)
   -- create a directory to hold backup files
   local backup_dir = '/tmp/vimbackup-' .. os.getenv('USER')
   if vim.fn.isdirectory(backup_dir) == 0 then
-      print('Creating ' .. backup_dir)
-      vim.fn.mkdir(backup_dir, '', tonumber('700', 8))
+    print('Creating ' .. backup_dir)
+    vim.fn.mkdir(backup_dir, '', tonumber('700', 8))
   end
 
+  local undo_dir = vim.fn.stdpath('data') .. '/undo'
+  if vim.fn.isdirectory(undo_dir) == 0 then
+    print('Creating ' .. undo_dir)
+    vim.fn.mkdir(undo_dir)
+  end
+
+  -- Backup and undofile directory:
   vim.opt.undodir:append('.')
   vim.opt.backupdir:prepend(backup_dir)
 
