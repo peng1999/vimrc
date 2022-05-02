@@ -37,6 +37,12 @@ return function(packer)
       pattern = '*.lua',
       settings = lua_settings(),
     },
+    {
+      lsp = 'rnix',
+      executable = 'rnix-lsp',
+      pattern = '*.nix',
+      settings = {},
+    }
   }
 
   for _, cfg in ipairs(lang_cfg) do
