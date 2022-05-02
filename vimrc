@@ -40,6 +40,7 @@ set mouse=a
 set updatetime=300
 set ignorecase
 set smartcase
+set breakindent
 
 set fileencodings=ucs-bom,utf-8,cp936,default,latin1
 
@@ -116,7 +117,7 @@ augroup END
 
 augroup text
     autocmd!
-    autocmd FileType text,tex setlocal textwidth=80
+    autocmd FileType text setlocal textwidth=80
 augroup END
 
 augroup golang
@@ -151,6 +152,11 @@ noremap <Leader>t :buf term://<CR>
 noremap <Leader>y "+y
 noremap <Leader>p "+p
 noremap <Leader>P "+P
+" Display Move
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
 
 cnoremap <C-P> <UP>
 cnoremap <C-N> <DOWN>

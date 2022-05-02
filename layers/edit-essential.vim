@@ -23,6 +23,8 @@ if executable("fcitx") || executable("fcitx5")
     if !has('gui')
         set ttimeoutlen=100
     end
+elseif executable("fcitx-remote") " Probably macOS
+    Plug 'CodeFalling/fcitx-vim-osx'
 end
 
 Plug 'editorconfig/editorconfig-vim'
