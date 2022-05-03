@@ -80,6 +80,20 @@ return function(packer)
   vim.keymap.set('c', '<C-P>', '<Up>')
   vim.keymap.set('c', '<C-N>', '<Down>')
 
+  -- terminal
+  vim.keymap.set('t', '<ESC>', '<C-\\><C-N>')
+  local terminal = vim.api.nvim_create_augroup('terminal', {})
+  vim.api.nvim_create_autocmd('TermOpen', {
+    pattern = '*',
+    group = terminal,
+    callback = function ()
+      vim.wo.number = false
+      vim.keymap.set('n', '<C-P>', 'i<C-P><C-\\><C-N>', { buffer = true })
+      vim.keymap.set('n', '<C-N>', 'i<C-N><C-\\><C-N>', { buffer = true })
+      vim.keymap.set('n', '<CR>',  'i<CR><C-\\><C-N>G', { buffer = true })
+    end
+  })
+
   -- restore last edit position
   local session = vim.api.nvim_create_augroup('session', {})
   vim.api.nvim_create_autocmd('BufReadPost', {
