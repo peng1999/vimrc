@@ -20,7 +20,7 @@ return function(packer)
           },
         },
         indent = {
-          enable = false,
+          enable = true,
         },
       }
       vim.wo.foldenable = false
