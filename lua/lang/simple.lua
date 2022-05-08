@@ -20,7 +20,7 @@ local function lua_settings()
   }
 end
 
-return function(packer)
+return function()
   local util = require('util')
   local nvim_lsp = require 'lspconfig'
 

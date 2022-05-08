@@ -1,12 +1,7 @@
-return function(packer)
+local M = {}
+function M.init(packer)
   -- basic rust support
   packer 'rust-lang/rust.vim'
-
-  local util = require('util')
-  if not util.executable('rustup') then
-    util.buf_msg_ft('*.rs', 'rustup not found, rust-tools will not load', 'rust')
-    return
-  end
 
   packer {
     'simrat39/rust-tools.nvim',
@@ -81,12 +76,7 @@ return function(packer)
           hover_actions = {
             -- the border that is used for the hover window
             -- see vim.api.nvim_open_win()
-            border = {
-              {"╭", "FloatBorder"}, {"─", "FloatBorder"},
-              {"╮", "FloatBorder"}, {"│", "FloatBorder"},
-              {"╯", "FloatBorder"}, {"─", "FloatBorder"},
-              {"╰", "FloatBorder"}, {"│", "FloatBorder"}
-            },
+            border = "rounded",
 
             -- whether the hover action window gets automatically focused
             auto_focus = false
@@ -122,3 +112,13 @@ return function(packer)
     end,
   }
 end
+
+function M.setup()
+  local util = require('util')
+  if not util.executable('rustup') then
+    util.buf_msg_ft('*.rs', 'rustup not found, rust-tools will not load', 'rust')
+    return
+  end
+end
+
+return M

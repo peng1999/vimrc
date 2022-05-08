@@ -24,9 +24,7 @@ require('packer').startup(function(use)
   require('lsp').init(p)
   require('nvim-cmp')(p)
 
-  require('lang/simple')(p)
-  require('lang/rust')(p)
-  require('lang/go')(p)
+  require('lang/rust').init(p)
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

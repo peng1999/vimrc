@@ -25,18 +25,29 @@ function M.init(packer)
         {text='~', texthl='LspDiagnosticsInformation', linehl='', numhl=''})
       sign_define('LspDiagnosticsSignHint',
         {text='?', texthl='LspDiagnosticsHint', linehl='', numhl=''})
+
+      require('lang/simple')()
+      require('lang/rust').setup()
+      require('lang/go')()
     end,
   }
-  packer "ray-x/lsp_signature.nvim"
+  packer {
+    "ray-x/lsp_signature.nvim",
+    config = function ()
+      require "lsp_signature".setup {
+        -- floating_window_above_cur_line = true,
+        bind = true,
+        handler_opts = {
+          border = "none",
+        },
+        max_height = 9,
+        -- floating_window_off_y = 1,
+      }
+    end,
+  }
 end
 
 function M.on_attach(client, bufnr)
-  require "lsp_signature".on_attach({
-    floating_window_above_cur_line = true,
-    hint_enable = false,
-    hint_prefix = "P: ",
-    timer_interval = 100,
-  }, bufnr)
 
   local util = require('util')
   local set_highlight = util.set_highlight

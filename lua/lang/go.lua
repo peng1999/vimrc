@@ -1,4 +1,4 @@
-return function(packer)
+return function()
   local group = vim.api.nvim_create_augroup('golang', {})
   vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
     pattern = '*.go',

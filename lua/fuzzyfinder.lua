@@ -1,7 +1,7 @@
 return function(packer)
   packer {
     'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} },
+    requires = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-ui-select.nvim' },
     cmd = 'Telescope',
     setup = function ()
       vim.keymap.set('n', '<leader>f', '<Cmd>Telescope find_files<CR>')
@@ -29,7 +29,29 @@ return function(packer)
             sort_mru = true,
           },
         },
+        extensions = {
+          ["ui-select"] = {
+            require("telescope.themes").get_cursor {}
+          },
+        },
       }
+
+      telescope.load_extension("ui-select")
     end,
+  }
+
+  packer {
+    'stevearc/dressing.nvim',
+    config = function ()
+      require('dressing').setup {
+        input = {
+          enabled = true,
+          border = "rounded",
+        },
+        select = {
+          enabled = false,
+        },
+      }
+    end
   }
 end
