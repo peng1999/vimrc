@@ -21,6 +21,8 @@ return function(packer)
   packer 'vim-utils/vim-husk'
   packer 'machakann/vim-highlightedyank'
 
+  packer 'github/copilot.vim'
+
   -- Options
   vim.opt.shiftwidth = 2
   vim.opt.expandtab = true

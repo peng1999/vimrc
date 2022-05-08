@@ -1,16 +1,4 @@
 return function(packer)
-  local function jumpable(n)
-    return vim.fn['vsnip#jumpable'](n) == 1
-  end
-  local function tab_fun()
-    return jumpable(1) and '<Plug>(vsnip-jump-next)' or '<Tab>'
-  end
-  local function stab_fun()
-    return jumpable(-1) and '<Plug>(vsnip-jump-prev)' or '<S-Tab>'
-  end
-  vim.keymap.set({'i', 's'}, '<Tab>', tab_fun, { expr = true, remap = true })
-  vim.keymap.set({'i', 's'}, '<S-Tab>', stab_fun, { expr = true, remap = true })
-
   packer {
     'hrsh7th/nvim-cmp',
     requires = {
@@ -25,6 +13,17 @@ return function(packer)
     },
     event = {'InsertEnter *', 'CmdlineEnter *'},
     config = function()
+      local function jumpable(n)
+        return vim.fn['vsnip#jumpable'](n) == 1
+      end
+      local function tab_fun()
+        return jumpable(1) and '<Plug>(vsnip-jump-next)' or '<Tab>'
+      end
+      local function stab_fun()
+        return jumpable(-1) and '<Plug>(vsnip-jump-prev)' or '<S-Tab>'
+      end
+      vim.keymap.set({'i', 's'}, '<Tab>', tab_fun, { expr = true, remap = true })
+      vim.keymap.set({'i', 's'}, '<S-Tab>', stab_fun, { expr = true, remap = true })
 
       -- Setup nvim-cmp.
       local cmp = require'cmp'
