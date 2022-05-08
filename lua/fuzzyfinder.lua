@@ -23,7 +23,10 @@ return function(packer)
         },
         pickers = {
           find_files = {
-            follow = true
+            follow = true,
+          },
+          buffers = {
+            sort_mru = true,
           },
         },
       }
