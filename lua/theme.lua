@@ -43,9 +43,13 @@ return function(packer)
   packer {
     'chriskempson/vim-tomorrow-theme',
     config = function()
-      vim.cmd 'set termguicolors'
-      vim.cmd 'colorscheme Tomorrow-Night'
-      vim.cmd 'highlight Normal guibg=NONE' -- This line does not work, why?
+      vim.opt.termguicolors = true
+      vim.cmd [[
+        colorscheme Tomorrow-Night
+        highlight Normal guibg=NONE
+        highlight FloatBorder ctermbg=NONE
+        highlight NormalFloat guibg=NONE
+      ]]
       common_config()
     end,
     cond = function ()

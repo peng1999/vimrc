@@ -26,6 +26,14 @@ function M.init(packer)
       sign_define('LspDiagnosticsSignHint',
         {text='?', texthl='LspDiagnosticsHint', linehl='', numhl=''})
 
+      -- Default to use rounded border
+      local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+      function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+        opts = opts or {}
+        opts.border = opts.border or "rounded"
+        return orig_util_open_floating_preview(contents, syntax, opts, ...)
+      end
+
       require('lang/simple')()
       require('lang/rust').setup()
       require('lang/go')()
@@ -38,10 +46,9 @@ function M.init(packer)
         -- floating_window_above_cur_line = true,
         bind = true,
         handler_opts = {
-          border = "none",
+          border = "rounded",
         },
         max_height = 9,
-        -- floating_window_off_y = 1,
       }
     end,
   }
