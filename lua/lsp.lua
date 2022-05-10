@@ -64,7 +64,10 @@ function M.on_attach(client, bufnr)
 
   -- Mappings.
   local opts = { buffer = bufnr, silent = true }
-  vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, opts)
+  vim.keymap.set('n', 'ga', function()
+    vim.cmd('PackerLoad telescope.nvim')
+    vim.lsp.buf.code_action()
+  end, opts)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
