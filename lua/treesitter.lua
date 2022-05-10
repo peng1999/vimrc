@@ -21,6 +21,7 @@ return function(packer)
         },
         indent = {
           enable = true,
+          disable = { 'python' },
         },
       }
       vim.wo.foldenable = false
