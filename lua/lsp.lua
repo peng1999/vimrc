@@ -48,7 +48,7 @@ function M.init(packer)
         handler_opts = {
           border = "rounded",
         },
-        max_height = 9,
+        max_height = 7,
       }
     end,
   }

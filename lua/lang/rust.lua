@@ -7,6 +7,17 @@ function M.init(packer)
     'simrat39/rust-tools.nvim',
     ft = 'rust',
     config = function ()
+      local util = require('util')
+
+      local cmd
+      if util.executable('rust-analyzer') then
+        cmd = {'rust-analyzer'}
+      elseif util.executable('rustup') then
+        cmd = {'rustup', 'run', 'nightly', 'rust-analyzer'}
+      else
+        return
+      end
+
       local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
       local cfg = {
         tools = { -- rust-tools options
@@ -88,7 +99,7 @@ function M.init(packer)
         -- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
         server = {
           on_attach = require('lsp').on_attach,
-          cmd = {'rustup', 'run', 'nightly', 'rust-analyzer'},
+          cmd = cmd,
           -- rust-analyer options
           ["rust-analyzer"] = {
             assist = {
@@ -115,7 +126,7 @@ end
 
 function M.setup()
   local util = require('util')
-  if not util.executable('rustup') then
+  if not util.executable('rustup') and not util.executable('rust-analyzer') then
     util.buf_msg_ft('*.rs', 'rustup not found, rust-tools will not load', 'rust')
     return
   end

@@ -5,7 +5,7 @@ return function(packer)
     config = function()
       require('nvim-treesitter.configs').setup {
         ensure_installed = {
-          'c', 'cpp', 'cuda', 'lua', 'rust', 'python', 'go', 'markdown', 'nix'
+          'c', 'cpp', 'cuda', 'fish', 'go', 'lua', 'markdown', 'nix', 'python', 'rust'
         },
         highlight = {
           enable = true,

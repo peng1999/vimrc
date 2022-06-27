@@ -17,13 +17,13 @@ return function(packer)
         return vim.fn['vsnip#jumpable'](n) == 1
       end
       local function tab_fun()
-        return jumpable(1) and '<Plug>(vsnip-jump-next)' or '<Tab>'
+        return jumpable(1) and '<Plug>(vsnip-jump-next)' or '<C-J>'
       end
       local function stab_fun()
-        return jumpable(-1) and '<Plug>(vsnip-jump-prev)' or '<S-Tab>'
+        return jumpable(-1) and '<Plug>(vsnip-jump-prev)' or '<M-J>'
       end
-      vim.keymap.set({'i', 's'}, '<Tab>', tab_fun, { expr = true, remap = true })
-      vim.keymap.set({'i', 's'}, '<S-Tab>', stab_fun, { expr = true, remap = true })
+      vim.keymap.set({'i', 's'}, '<C-J>', tab_fun, { expr = true, remap = true })
+      vim.keymap.set({'i', 's'}, '<M-J>', stab_fun, { expr = true, remap = true })
 
       -- Setup nvim-cmp.
       local cmp = require'cmp'
