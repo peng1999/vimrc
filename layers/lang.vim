@@ -21,6 +21,16 @@ Plug 'Shougo/vinarise.vim'
 " Plug 'jvoorhis/coq.vim'
 Plug 'lervag/vimtex'
 autocmd FileType tex map <buffer> <LocalLeader>ll :w<CR>:VimtexCompileSS<CR>
+if executable("tectonic")
+    let g:vimtex_compiler_method = 'tectonic'
+    let g:vimtex_compiler_tectonic = {
+        \ 'options' : [
+        \   '-r0',
+        \   '--keep-logs',
+        \   '--synctex'
+        \ ],
+        \}
+end
 if executable("okular")
     let g:vimtex_view_general_viewer = 'okular'
     let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
