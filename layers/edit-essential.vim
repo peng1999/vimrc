@@ -27,4 +27,6 @@ elseif executable("fcitx-remote") " Probably macOS
     Plug 'CodeFalling/fcitx-vim-osx'
 end
 
-Plug 'editorconfig/editorconfig-vim'
+if !has('nvim-0.9')
+    Plug 'editorconfig/editorconfig-vim'
+end

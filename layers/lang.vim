@@ -1,7 +1,9 @@
 " Language and git support
+if index(g:rerun_layer, expand('<sfile>')) == -1
+call add(g:rerun_layer, expand('<sfile>'))
 
 Plug 'sheerun/vim-polyglot' " for multi-language highlight
-let g:polyglot_disabled = ['sensible', 'v', 'visual-basic', 'lifelines']
+let g:polyglot_disabled = ['help', 'v', 'visual-basic', 'lifelines']
 Plug 'justinmk/vim-syntax-extra' " for Flex and Bison highlight
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
@@ -19,6 +21,7 @@ autocmd FileType rust map <M-S-L> :RustFmt<CR>
 Plug 'Shougo/vinarise.vim'
 " Plug 'ziglang/zig.vim'
 " Plug 'jvoorhis/coq.vim'
+Plug 'kaarmu/typst.vim'
 Plug 'lervag/vimtex'
 autocmd FileType tex map <buffer> <LocalLeader>ll :w<CR>:VimtexCompileSS<CR>
 if executable("tectonic")
@@ -34,11 +37,25 @@ end
 if executable("okular")
     let g:vimtex_view_general_viewer = 'okular'
     let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
-    let g:vimtex_view_general_options_latexmk = '--unique'
 elseif executable("skimpdf")
     let g:vimtex_view_method = 'skim'
 end
 let g:tex_flavor = 'latex'
 
 Plug 'github/copilot.vim'
+let g:copilot_filetypes = {
+            \ 'markdown': v:true,
+            \ }
 
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+else
+
+lua << EOF
+    require'nvim-treesitter.configs'.setup {
+        highlight = {
+            enable = true,
+        },
+    }
+EOF
+endif

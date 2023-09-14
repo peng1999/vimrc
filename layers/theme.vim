@@ -2,7 +2,7 @@
 if index(g:rerun_layer, expand('<sfile>')) == -1
     call add(g:rerun_layer, expand('<sfile>'))
     Plug 'vim-airline/vim-airline'
-    Plug 'joshdick/onedark.vim'
+    Plug 'folke/tokyonight.nvim'
 else
 " always show current position
 let g:airline#extensions#default#section_truncate_width = {
@@ -17,19 +17,19 @@ let g:airline#extensions#default#section_truncate_width = {
 if has('termguicolors')
     set termguicolors
 end
-let g:onedark_terminal_italics = 1
-let g:airline_theme = 'onedark'
+" let g:airline_theme = 'catppuccin'
 let g:airline#extensions#csv#enabled = 1
 
 " ignore if onedark theme is not installed
 try
-    colorscheme onedark
-    highlight CocHighlightText guibg=#505050
-    highlight clear SpellBad
-    highlight SpellBad gui=undercurl
-    highlight GitGutter ctermfg=White guifg=#a0a0a0
-    " Fix wide character issue in alacritty
+    colorscheme tokyonight
+    " highlight CocHighlightText guibg=#505050
+    " highlight clear SpellBad
+    " highlight SpellBad gui=undercurl
+    " highlight GitGutter ctermfg=White guifg=#a0a0a0
+    " " Fix wide character issue in alacritty
     highlight Normal guibg=NONE
+    highlight @text.literal.markdown_inline guibg=NONE
 catch
     echomsg 'theme failed to load'
 endtry
