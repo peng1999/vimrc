@@ -1,16 +1,15 @@
-return function(packer)
-  packer {
+return function(add_package)
+  add_package {
     'TimUntersberger/neogit',
-    requires = 'nvim-lua/plenary.nvim',
-    config = function ()
-      require('neogit').setup {
-        signs = {
-          section = { "▶", "▼" },
-          item = { "▶", "▼" },
-          hunk = { "", "" },
-        }
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {
+      signs = {
+        section = { "▶", "▼" },
+        item = { "▶", "▼" },
+        hunk = { "", "" },
       }
-    end,
+    },
+    lazy = true,
     cmd = 'Neogit',
   }
 end

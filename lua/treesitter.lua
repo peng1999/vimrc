@@ -1,7 +1,7 @@
-return function(packer)
-  packer {
+return function(add_package)
+  add_package {
     'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
+    build = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup {
         ensure_installed = {
@@ -12,18 +12,12 @@ return function(packer)
         },
         incremental_selection = {
           enable = true,
-          keymaps = {
-            init_selection = 'gnn',
-            node_incremental = 'grn',
-            scope_incremental = 'grc',
-            node_decremental = 'grm',
-          },
         },
-        indent = {
-          enable = true,
-          disable = { 'python' },
-        },
+        -- indent = {
+        --   enable = true,
+        -- },
       }
+
       vim.wo.foldenable = false
       vim.wo.foldmethod = 'expr'
       vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'

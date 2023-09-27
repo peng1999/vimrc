@@ -1,34 +1,36 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-local packer_bootstrap
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.runtimepath:prepend(lazypath)
 
-local prefix = fn.stdpath('config')..'/lua/'
-if fn.filereadable(prefix..'config.lua') == 0 then
+local prefix = vim.fn.stdpath('config')..'/lua/'
+if vim.fn.filereadable(prefix..'config.lua') == 0 then
   print('config.lua not found, copying from config.lua.example...')
-  fn.system({'cp', prefix..'config.lua.example', prefix..'config.lua'})
+  vim.fn.system({'cp', prefix..'config.lua.example', prefix..'config.lua'})
 end
 
-require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
+local plugins = {}
+local add_package = function(spec)
+  table.insert(plugins, spec)
+end
 
-  local p = use
+local modules = {
+  require("editor"),
+  require("git"),
+  require("treesitter"),
+  require("theme"),
+  require("coc"),
+}
+for _, module in ipairs(modules) do
+  module(add_package)
+end
 
-  require('editor')(p)
-  require('theme')(p)
-  require('fuzzyfinder')(p)
-  require('git')(p)
-  require('treesitter')(p)
-  require('lsp').init(p)
-  require('nvim-cmp')(p)
-
-  require('lang/rust').init(p)
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
+require("lazy").setup(plugins)

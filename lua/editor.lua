@@ -1,28 +1,42 @@
-return function(packer)
-  packer 'tpope/vim-sensible'
+return function(add_package)
+  add_package 'tpope/vim-sensible'
 
-  packer 'tpope/vim-surround'
-  packer 'tpope/vim-repeat'
+  add_package 'tpope/vim-surround'
+  add_package 'tpope/vim-repeat'
 
-  packer {
+  add_package {
     'windwp/nvim-autopairs',
-    event = {'InsertEnter *'},
-    config = function ()
-      require('nvim-autopairs').setup{}
-    end
+    -- event = {'InsertEnter *'},
+    priority = 60,
+    opts = {
+      map_cr = true,
+    },
   }
 
-  packer {
+  add_package {
     'numToStr/Comment.nvim',
-    config = function()
-        require('Comment').setup()
+    config = true,
+  }
+
+  add_package 'vim-utils/vim-husk'
+  add_package 'machakann/vim-highlightedyank'
+
+  add_package 'github/copilot.vim'
+
+  add_package {
+    'alohaia/fcitx.nvim',
+    enabled = vim.fn.executable('fcitx5-remote'),
+    config = function ()
+      require 'fcitx' {}
     end
   }
 
-  packer 'vim-utils/vim-husk'
-  packer 'machakann/vim-highlightedyank'
-
-  -- packer 'github/copilot.vim'
+  -- filetypes
+  add_package {
+    'kaarmu/typst.vim',
+    ft = 'typst',
+    lazy = false,
+  }
 
   -- Options
   vim.opt.shiftwidth = 2
@@ -73,7 +87,7 @@ return function(packer)
   vim.keymap.set('n', '<Leader>b', '<Cmd>buf#<CR>')
   vim.keymap.set('n', '<Leader>t', '<Cmd>buf term://<CR>')
   -- clipboard
-  vim.keymap.set('n', '<Leader>y', '"+y')
+  vim.keymap.set({'n', 'v'}, '<Leader>y', '"+y')
   vim.keymap.set('n', '<Leader>p', '"+p')
   vim.keymap.set('n', '<Leader>P', '"+P')
 

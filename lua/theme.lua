@@ -1,7 +1,7 @@
-return function(packer)
-  packer {
+return function(add_package)
+  add_package {
     'vim-airline/vim-airline',
-    requires = {
+    dependencies = {
       'vim-airline/vim-airline-themes',
       'tpope/vim-fugitive', -- for airline-branch to work
     },
@@ -9,6 +9,7 @@ return function(packer)
       local airline_theme = {
         onedark = 'onedark',
         tomorrow = 'lucius',
+        tokyonight = 'lucius',
       }
       vim.g.airline_theme = airline_theme[require('config').theme]
       vim.g['airline#extensions#csv#enabled'] = 1
@@ -21,7 +22,7 @@ return function(packer)
     ]]
   end
 
-  packer {
+  add_package {
     'joshdick/onedark.vim',
     config = function ()
       vim.opt.termguicolors = true
@@ -35,12 +36,13 @@ return function(packer)
       ]]
       common_config()
     end,
+    priority = 1000,
     cond = function ()
       return require('config').theme == 'onedark'
     end
   }
 
-  packer {
+  add_package {
     'chriskempson/vim-tomorrow-theme',
     config = function()
       vim.opt.termguicolors = true
@@ -52,8 +54,23 @@ return function(packer)
       ]]
       common_config()
     end,
+    priority = 1000,
     cond = function ()
       return require('config').theme == 'tomorrow'
+    end
+  }
+
+  add_package {
+    "folke/tokyonight.nvim",
+    priority = 1000,
+    config = function()
+      vim.cmd[[
+        colorscheme tokyonight
+        highlight CocHighlightText guibg=#353e5f
+      ]]
+    end,
+    cond = function ()
+      return require('config').theme == 'tokyonight'
     end
   }
 end
