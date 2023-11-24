@@ -16,7 +16,13 @@ return function(add_package)
     end,
   }
 
-  function common_config()
+  add_package {
+    'norcalli/nvim-colorizer.lua',
+    opts = {'*'},
+    main = 'colorizer',
+  }
+
+  local function common_config()
     vim.cmd [[
       highlight LspSignatureActiveParameter guifg=NONE ctermfg=NONE guibg=#1d1f21 ctermbg=53 gui=Bold,underline,Italic cterm=Bold,underline,Italic guisp=#fbec9f
     ]]
@@ -67,6 +73,7 @@ return function(add_package)
       vim.cmd[[
         colorscheme tokyonight
         highlight CocHighlightText guibg=#353e5f
+        highlight link @identifier @variable.builtin
       ]]
     end,
     cond = function ()

@@ -12,4 +12,9 @@ return function(add_package)
     lazy = true,
     cmd = 'Neogit',
   }
+
+  add_package {
+    'APZelos/blamer.nvim',
+    cmd = { 'BlamerHide', 'BlamerShow', 'BlamerToggle' },
+  }
 end

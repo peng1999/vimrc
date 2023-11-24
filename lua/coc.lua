@@ -171,15 +171,15 @@ local function config_coc()
   -- Show all diagnostics
   keyset("n", "<Leader>d", ":<C-u>CocList diagnostics<cr>", opts)
   -- Show commands
-  keyset("n", "<Leader>c", ":<C-u>CocList commands<cr>", opts)
+  keyset("n", "<Leader>cm", ":<C-u>CocList commands<cr>", opts)
   -- Find symbol of current document
   keyset("n", "<Leader>o", ":<C-u>CocList outline<cr>", opts)
   -- Search workspace symbols
   keyset("n", "<Leader>s", ":<C-u>CocList -I symbols<cr>", opts)
   -- Show all files
   keyset("n", "<Leader>f", ":<C-u>CocList files<cr>", opts)
-  -- Resume latest coc list
-  keyset("n", "<Leader>p", ":<C-u>CocListResume<cr>", opts)
+  -- Show current buffers
+  keyset("n", "<Leader>u", ":<C-u>CocList buffers<cr>", opts)
 end
 
 return function(add_package)

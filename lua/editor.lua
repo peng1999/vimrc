@@ -28,15 +28,19 @@ return function(add_package)
     enabled = vim.fn.executable('fcitx5-remote'),
     config = function ()
       require 'fcitx' {}
-    end
+    end,
+    cond = vim.env.DISPLAY ~= nil,
   }
 
   -- filetypes
-  add_package {
-    'kaarmu/typst.vim',
-    ft = 'typst',
-    lazy = false,
-  }
+  add_package 'rust-lang/rust.vim'
+  vim.filetype.add({
+    extension = {
+      typ = 'typst',
+      mpp = 'cpp',
+      plt = 'gnuplot',
+    }
+  })
 
   -- Options
   vim.opt.shiftwidth = 2
@@ -80,6 +84,7 @@ return function(add_package)
   vim.cmd 'filetype plugin on'
   vim.cmd 'filetype indent on'
 
+  -- Keymaps
   vim.g.mapleader = ' '
 
   vim.keymap.set('n', '<Leader>n', '<Cmd>noh<CR>')
@@ -88,8 +93,8 @@ return function(add_package)
   vim.keymap.set('n', '<Leader>t', '<Cmd>buf term://<CR>')
   -- clipboard
   vim.keymap.set({'n', 'v'}, '<Leader>y', '"+y')
-  vim.keymap.set('n', '<Leader>p', '"+p')
-  vim.keymap.set('n', '<Leader>P', '"+P')
+  vim.keymap.set({'n', 'v'}, '<Leader>p', '"+p')
+  vim.keymap.set({'n', 'v'}, '<Leader>P', '"+P')
 
   vim.keymap.set({'n', 'v'}, 'j', 'gj')
   vim.keymap.set({'n', 'v'}, 'k', 'gk')
@@ -122,4 +127,9 @@ return function(add_package)
     end,
     group = session,
   })
+
+  -- My shortcut commands
+  vim.api.nvim_create_user_command('EditInit', 'edit ' .. vim.fn.stdpath('config') .. '/init.lua', {})
+  vim.api.nvim_create_user_command('EditLua', 'edit ' .. vim.fn.stdpath('config') .. '/lua', {})
+  vim.keymap.set('n', '<F10>', '<Cmd>!g++ % -o %<.o<CR>')
 end
