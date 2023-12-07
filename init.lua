@@ -23,14 +23,15 @@ local add_package = function(spec)
 end
 
 local modules = {
-  require("editor"),
-  require("git"),
-  require("treesitter"),
-  require("theme"),
-  require("coc"),
+  "editor",
+  "ui",
+  "git",
+  "treesitter",
+  "theme",
+  "coc",
 }
 for _, module in ipairs(modules) do
-  module(add_package)
+  require(module)(add_package)
 end
 
 require("lazy").setup(plugins)

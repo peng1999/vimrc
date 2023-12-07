@@ -11,6 +11,9 @@ return function(add_package)
     },
     lazy = true,
     cmd = 'Neogit',
+    keys = {
+      {"<leader>g", "<cmd>Neogit<cr>"},
+    },
   }
 
   add_package {

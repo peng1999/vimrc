@@ -1,22 +1,5 @@
 return function(add_package)
   add_package {
-    'vim-airline/vim-airline',
-    dependencies = {
-      'vim-airline/vim-airline-themes',
-      'tpope/vim-fugitive', -- for airline-branch to work
-    },
-    config = function()
-      local airline_theme = {
-        onedark = 'onedark',
-        tomorrow = 'lucius',
-        tokyonight = 'lucius',
-      }
-      vim.g.airline_theme = airline_theme[require('config').theme]
-      vim.g['airline#extensions#csv#enabled'] = 1
-    end,
-  }
-
-  add_package {
     'norcalli/nvim-colorizer.lua',
     opts = {'*'},
     main = 'colorizer',

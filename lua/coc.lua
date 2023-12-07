@@ -14,6 +14,15 @@ local function config_coc()
       return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
   end
 
+  local npairs = require('nvim-autopairs')
+  function _G.completion_comfirm()
+    if vim.fn["coc#pum#visible"]() ~= 0  then
+      return vim.fn["coc#pum#confirm"]()
+    else
+      return npairs.autopairs_cr()
+    end
+  end
+
   -- Use Tab for trigger completion with characters ahead and navigate
   -- NOTE: There's always a completion item selected by default, you may want to enable
   -- no select by setting `"suggest.noselect": true` in your configuration file
@@ -25,7 +34,7 @@ local function config_coc()
 
   -- Make <CR> to accept selected completion item or notify coc.nvim to format
   -- <C-g>u breaks current undo, please make your own choice
-  keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
+  keyset("i", "<cr>", "v:lua.completion_comfirm()", opts)
 
   -- Use <c-space> to trigger completion
   keyset("i", "<c-space>", "coc#refresh()", {silent = true, expr = true})
@@ -109,14 +118,14 @@ local function config_coc()
 
   -- Map function and class text objects
   -- NOTE: Requires 'textDocument.documentSymbol' support from the language server
-  keyset("x", "if", "<Plug>(coc-funcobj-i)", opts)
-  keyset("o", "if", "<Plug>(coc-funcobj-i)", opts)
-  keyset("x", "af", "<Plug>(coc-funcobj-a)", opts)
-  keyset("o", "af", "<Plug>(coc-funcobj-a)", opts)
-  keyset("x", "ic", "<Plug>(coc-classobj-i)", opts)
-  keyset("o", "ic", "<Plug>(coc-classobj-i)", opts)
-  keyset("x", "ac", "<Plug>(coc-classobj-a)", opts)
-  keyset("o", "ac", "<Plug>(coc-classobj-a)", opts)
+  -- keyset("x", "if", "<Plug>(coc-funcobj-i)", opts)
+  -- keyset("o", "if", "<Plug>(coc-funcobj-i)", opts)
+  -- keyset("x", "af", "<Plug>(coc-funcobj-a)", opts)
+  -- keyset("o", "af", "<Plug>(coc-funcobj-a)", opts)
+  -- keyset("x", "ic", "<Plug>(coc-classobj-i)", opts)
+  -- keyset("o", "ic", "<Plug>(coc-classobj-i)", opts)
+  -- keyset("x", "ac", "<Plug>(coc-classobj-a)", opts)
+  -- keyset("o", "ac", "<Plug>(coc-classobj-a)", opts)
 
 
   -- Remap <C-f> and <C-b> to scroll float windows/popups

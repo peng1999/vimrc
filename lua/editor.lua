@@ -1,16 +1,24 @@
 return function(add_package)
   add_package 'tpope/vim-sensible'
 
-  add_package 'tpope/vim-surround'
-  add_package 'tpope/vim-repeat'
+  add_package {
+    'kylechui/nvim-surround',
+    event = 'VeryLazy',
+    opts = {},
+  }
 
   add_package {
-    'windwp/nvim-autopairs',
-    -- event = {'InsertEnter *'},
-    priority = 60,
+    "windwp/nvim-autopairs",
+    event = 'VeryLazy',
     opts = {
-      map_cr = true,
+      map_cr = false,
     },
+  }
+
+  add_package {
+    "echasnovski/mini.ai",
+    event = "VeryLazy",
+    opts = {},
   }
 
   add_package {
@@ -39,6 +47,7 @@ return function(add_package)
       typ = 'typst',
       mpp = 'cpp',
       plt = 'gnuplot',
+      gnu = 'gnuplot',
     }
   })
 
