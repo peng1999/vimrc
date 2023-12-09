@@ -1,5 +1,5 @@
-return function(add_package)
-  add_package {
+return {
+  {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     dependencies = {
@@ -28,9 +28,9 @@ return function(add_package)
         },
       },
     },
-  }
+  },
 
-  add_package {
+  {
     'nvim-pack/nvim-spectre',
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -38,9 +38,9 @@ return function(add_package)
     build = false,
     cmd = "Spectre",
     opts = { open_cmd = "noswapfile vnew" },
-  }
+  },
 
-  -- add_package {
+  -- {
   --   'vim-airline/vim-airline',
   --   dependencies = {
   --     'vim-airline/vim-airline-themes',
@@ -57,7 +57,7 @@ return function(add_package)
   --   end,
   -- }
 
-  add_package {
+  {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     event = 'VeryLazy',
@@ -71,5 +71,5 @@ return function(add_package)
         lualine_c = { 'filename', '%{coc#status()}' },
       },
     }
-  }
-end
+  },
+}

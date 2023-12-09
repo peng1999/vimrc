@@ -17,21 +17,7 @@ if vim.fn.filereadable(prefix..'config.lua') == 0 then
   vim.fn.system({'cp', prefix..'config.lua.example', prefix..'config.lua'})
 end
 
-local plugins = {}
-local add_package = function(spec)
-  table.insert(plugins, spec)
-end
+require("editor")
 
-local modules = {
-  "editor",
-  "ui",
-  "git",
-  "treesitter",
-  "theme",
-  "coc",
-}
-for _, module in ipairs(modules) do
-  require(module)(add_package)
-end
+require("lazy").setup("plugins")
 
-require("lazy").setup(plugins)

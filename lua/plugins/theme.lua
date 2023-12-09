@@ -1,17 +1,17 @@
-return function(add_package)
-  add_package {
+local function common_config()
+  vim.cmd [[
+  highlight LspSignatureActiveParameter guifg=NONE ctermfg=NONE guibg=#1d1f21 ctermbg=53 gui=Bold,underline,Italic cterm=Bold,underline,Italic guisp=#fbec9f
+  ]]
+end
+
+return {
+  {
     'norcalli/nvim-colorizer.lua',
     opts = {'*'},
     main = 'colorizer',
-  }
+  },
 
-  local function common_config()
-    vim.cmd [[
-      highlight LspSignatureActiveParameter guifg=NONE ctermfg=NONE guibg=#1d1f21 ctermbg=53 gui=Bold,underline,Italic cterm=Bold,underline,Italic guisp=#fbec9f
-    ]]
-  end
-
-  add_package {
+  {
     'joshdick/onedark.vim',
     config = function ()
       vim.opt.termguicolors = true
@@ -29,9 +29,9 @@ return function(add_package)
     cond = function ()
       return require('config').theme == 'onedark'
     end
-  }
+  },
 
-  add_package {
+  {
     'chriskempson/vim-tomorrow-theme',
     config = function()
       vim.opt.termguicolors = true
@@ -47,9 +47,9 @@ return function(add_package)
     cond = function ()
       return require('config').theme == 'tomorrow'
     end
-  }
+  },
 
-  add_package {
+  {
     "folke/tokyonight.nvim",
     priority = 1000,
     config = function()
@@ -62,5 +62,5 @@ return function(add_package)
     cond = function ()
       return require('config').theme == 'tokyonight'
     end
-  }
-end
+  },
+}

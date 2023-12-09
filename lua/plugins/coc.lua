@@ -191,10 +191,10 @@ local function config_coc()
   keyset("n", "<Leader>u", ":<C-u>CocList buffers<cr>", opts)
 end
 
-return function(add_package)
-  add_package {
+return {
+  {
     'neoclide/coc.nvim',
     branch = 'release',
     config = config_coc,
-  }
-end
+  },
+}

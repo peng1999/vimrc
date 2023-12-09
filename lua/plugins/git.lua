@@ -1,5 +1,5 @@
-return function(add_package)
-  add_package {
+return {
+  {
     'TimUntersberger/neogit',
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {
@@ -14,10 +14,10 @@ return function(add_package)
     keys = {
       {"<leader>g", "<cmd>Neogit<cr>"},
     },
-  }
+  },
 
-  add_package {
+  {
     'APZelos/blamer.nvim',
     cmd = { 'BlamerHide', 'BlamerShow', 'BlamerToggle' },
-  }
-end
+  },
+}
