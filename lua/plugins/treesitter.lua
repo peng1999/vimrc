@@ -5,8 +5,7 @@ local function config_typst()
     parser_config.typst = {
       install_info = {
         url = typst_path,
-        files = { 'src/parser.c', 'src/scanner.cc' },
-        branch = 'main',
+        files = { 'src/parser.c', 'src/scanner.c' },
       },
       filetype = 'typst', -- if filetype does not agrees with parser name
     }
