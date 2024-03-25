@@ -1,12 +1,3 @@
-vim.filetype.add({
-  extension = {
-    typ = 'typst',
-    mpp = 'cpp',
-    plt = 'gnuplot',
-    gnu = 'gnuplot',
-  }
-})
-
 return {
   'tpope/vim-sensible',
 
@@ -20,7 +11,7 @@ return {
     "windwp/nvim-autopairs",
     event = 'VeryLazy',
     opts = {
-      map_cr = false,
+      map_cr = true,
     },
   },
 
@@ -39,7 +30,26 @@ return {
   'vim-utils/vim-husk',
   'machakann/vim-highlightedyank',
 
-  'github/copilot.vim',
+  -- {
+  --   'github/copilot.vim',
+  -- },
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    opts = {
+      panel = {
+        enabled = false,
+      },
+      suggestion = {
+        auto_trigger = true,
+        keymap = {
+          accept = "<Tab>",
+          accept_word = "<M-f>",
+        },
+      },
+    },
+  },
 
   {
     'alohaia/fcitx.nvim',

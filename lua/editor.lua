@@ -1,3 +1,12 @@
+vim.filetype.add({
+  extension = {
+    typ = 'typst',
+    mpp = 'cpp',
+    plt = 'gnuplot',
+    gnu = 'gnuplot',
+  }
+})
+
 -- Options
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true

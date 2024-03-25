@@ -15,11 +15,12 @@ local function config_typst()
 end
 
 local function config_treesitter()
-  config_typst()
+  -- Now its built-in
+  -- config_typst()
 
   require('nvim-treesitter.configs').setup {
     ensure_installed = {
-      'c', 'cpp', 'cuda', 'fish', 'go', 'lua', 'markdown', 'nix', 'python', 'rust'
+      'c', 'cpp', 'cuda', 'fish', 'go', 'lua', 'markdown', 'nix', 'python', 'rust', 'typst'
     },
     highlight = {
       enable = true,

@@ -59,7 +59,11 @@ return {
 
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+      'arkav/lualine-lsp-progress',
+      'AndreM222/copilot-lualine',
+    },
     event = 'VeryLazy',
     opts = {
       extensions = { 'lazy', 'neo-tree' },
@@ -68,7 +72,9 @@ return {
         section_separators = '',
       },
       sections = {
-        lualine_c = { 'filename', '%{coc#status()}' },
+        -- lualine_c = { 'filename', '%{coc#status()}' },
+        lualine_c = { 'filename', 'lsp_progress' },
+        lualine_x = { 'copilot' ,'encoding', 'fileformat', 'filetype' },
       },
     }
   },

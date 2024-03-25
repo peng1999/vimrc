@@ -194,6 +194,7 @@ end
 return {
   {
     'neoclide/coc.nvim',
+    enabled = false,
     branch = 'release',
     config = config_coc,
   },
