@@ -28,6 +28,14 @@ return {
         },
       },
     },
+    init = function ()
+      vim.api.nvim_create_user_command('EditInit', function ()
+        require('neo-tree.command').execute({
+          reveal_file = vim.fn.stdpath('config') .. '/init.lua',
+          reveal_force_cwd = true,
+        })
+      end, { desc = 'Edit init.lua' })
+    end
   },
 
   {
@@ -78,4 +86,30 @@ return {
       },
     }
   },
+
+  -- For vim.ui.select and vim.ui.input
+  {
+    'stevearc/dressing.nvim',
+    opts = {},
+  },
+
+  -- For vim.notify
+  {
+    'rcarriga/nvim-notify',
+    opts = {
+      stages = 'static',
+      max_width = function()
+        return math.floor(vim.o.columns * 0.75)
+      end,
+      top_down = false,
+    },
+    init = function ()
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'VeryLazy',
+        callback = function ()
+          vim.notify = require('notify')
+        end
+      })
+    end
+  }
 }

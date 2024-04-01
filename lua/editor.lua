@@ -23,6 +23,7 @@ vim.opt.updatetime = 300
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.completeopt = "menu,menuone,noselect"
+vim.opt.signcolumn = "yes"
 
 -- create a directory to hold backup files
 local backup_dir = '/tmp/vimbackup-' .. os.getenv('USER')
@@ -95,5 +96,4 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 
 -- My shortcut commands
 vim.api.nvim_create_user_command('EditInit', 'edit ' .. vim.fn.stdpath('config') .. '/init.lua', {})
-vim.api.nvim_create_user_command('EditLua', 'edit ' .. vim.fn.stdpath('config') .. '/lua', {})
 vim.keymap.set('n', '<F10>', '<Cmd>!g++ % -o %<.o<CR>')

@@ -44,7 +44,8 @@ return {
       suggestion = {
         auto_trigger = true,
         keymap = {
-          accept = "<Tab>",
+          accept = false, -- This will be handled by the completion plugin
+          accept_line = "<C-f>",
           accept_word = "<M-f>",
         },
       },
