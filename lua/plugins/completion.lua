@@ -6,21 +6,19 @@ end
 
 local function setup_cmp()
   -- Set up nvim-cmp.
-  local cmp = require'cmp'
-  local luasnip = require'luasnip'
+  local cmp = require 'cmp'
+  local luasnip = require 'luasnip'
   local copilot = require("copilot.suggestion")
 
   local function on_tab(fallback)
-    if copilot.is_visible() then
+    -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+    -- that way you will only jump inside the snippet region
+    if luasnip.expand_or_locally_jumpable() then
+      luasnip.expand_or_jump()
+    elseif copilot.is_visible() then
       copilot.accept()
     elseif cmp.visible() then
       cmp.select_next_item()
-      -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable() 
-      -- that way you will only jump inside the snippet region
-    elseif luasnip.expand_or_locally_jumpable() then
-      luasnip.expand_or_jump()
-    elseif has_words_before() then
-      cmp.complete()
     else
       fallback()
     end
@@ -61,6 +59,7 @@ local function setup_cmp()
       { name = 'luasnip' }, -- For luasnip users.
     }, {
       { name = 'buffer' },
+      { name = 'path' },
     })
   })
 
@@ -109,7 +108,7 @@ return {
   {
     "hrsh7th/nvim-cmp",
     version = false, -- last release is way too old
-    event = {"InsertEnter", "CmdlineEnter"},
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
@@ -123,5 +122,9 @@ return {
       "saadparwaiz1/cmp_luasnip",
     },
     config = setup_cmp,
+  },
+  {
+    "L3MON4D3/LuaSnip",
+    build = "make install_jsregexp"
   },
 }

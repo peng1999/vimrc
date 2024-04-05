@@ -1,32 +1,51 @@
 local function config_lspconfig()
-  vim.lsp.set_log_level("debug")
+  -- vim.lsp.set_log_level("debug")
 
   local lspconfig = require('lspconfig')
-  local utf8_cap = {
-    offsetEncoding = "utf-8",
-  }
-  local function get_server_opts(add_opts)
-    local cap = vim.tbl_deep_extend(
-      "force",
-      vim.lsp.protocol.make_client_capabilities(),
-      require('cmp_nvim_lsp').default_capabilities(),
-      add_opts or {}
-    )
-    return { capabilities = cap }
-  end
-  lspconfig.bashls.setup(get_server_opts())
-  lspconfig.clangd.setup(get_server_opts(utf8_cap))
-  lspconfig.cmake.setup(get_server_opts())
-  lspconfig.lua_ls.setup(get_server_opts())
-  lspconfig.nil_ls.setup(get_server_opts())
-  lspconfig.pyright.setup(get_server_opts(utf8_cap))
-  lspconfig.rust_analyzer.setup(get_server_opts())
+  local cmp_nvim_lsp = require('cmp_nvim_lsp')
 
-  lspconfig.tinymist.setup(vim.tbl_deep_extend("force", get_server_opts(), {
-    root_dir = function(dir)
-      return lspconfig.util.find_git_ancestor(dir) or lspconfig.util.path.dirname(dir)
+  ---@param server_opts { is_utf8?: boolean, config?: table }
+  ---@return table
+  local function get_server_opts(server_opts)
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = vim.tbl_deep_extend("force", capabilities, cmp_nvim_lsp.default_capabilities())
+
+    if server_opts.is_utf8 then
+      capabilities.offsetEncoding = "utf-8"
     end
-  }))
+
+    local opts = vim.tbl_deep_extend(
+      "force",
+      { capabilities = capabilities },
+      server_opts.config or {}
+    )
+
+    return opts
+  end
+
+  ---@type { [string]: { is_utf8?: boolean, config?: table } }
+  local servers = {
+    bashls = {},
+    clangd = { is_utf8 = true },
+    cmake = {},
+    jsonls = {},
+    lua_ls = {},
+    nil_ls = {},
+    pyright = { is_utf8 = true },
+    rust_analyzer = {},
+    tinymist = {
+      config = {
+        root_dir = function(dir)
+          return lspconfig.util.find_git_ancestor(dir) or vim.fn.getcwd()
+        end
+      }
+    },
+    tsserver = {},
+  }
+
+  for server, config in pairs(servers) do
+    lspconfig[server].setup(get_server_opts(config))
+  end
 
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions

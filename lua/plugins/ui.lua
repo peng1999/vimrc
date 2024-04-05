@@ -28,8 +28,8 @@ return {
         },
       },
     },
-    init = function ()
-      vim.api.nvim_create_user_command('EditInit', function ()
+    init = function()
+      vim.api.nvim_create_user_command('EditInit', function()
         require('neo-tree.command').execute({
           reveal_file = vim.fn.stdpath('config') .. '/init.lua',
           reveal_force_cwd = true,
@@ -82,7 +82,7 @@ return {
       sections = {
         -- lualine_c = { 'filename', '%{coc#status()}' },
         lualine_c = { 'filename', 'lsp_progress' },
-        lualine_x = { 'copilot' ,'encoding', 'fileformat', 'filetype' },
+        lualine_x = { 'copilot', 'encoding', 'fileformat', 'filetype' },
       },
     }
   },
@@ -96,6 +96,15 @@ return {
   -- For vim.notify
   {
     'rcarriga/nvim-notify',
+    keys = {
+      {
+        "<leader>un",
+        function()
+          require("notify").dismiss({ silent = true, pending = true })
+        end,
+        desc = "Dismiss All Notifications",
+      },
+    },
     opts = {
       stages = 'static',
       max_width = function()
@@ -103,11 +112,24 @@ return {
       end,
       top_down = false,
     },
-    init = function ()
+    init = function()
+      local banned_messages = {
+        "No matching notification found to replace",
+      }
       vim.api.nvim_create_autocmd('User', {
-        pattern = 'VeryLazy',
-        callback = function ()
-          vim.notify = require('notify')
+        pattern = 'LazyDone',
+        callback = function()
+          vim.notify = function(msg, ...)
+            if msg == nil then
+              return
+            end
+            for _, banned in ipairs(banned_messages) do
+              if string.match(msg, banned) then
+                return
+              end
+            end
+            require('notify')(msg, ...)
+          end
         end
       })
     end
