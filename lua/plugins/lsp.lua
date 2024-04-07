@@ -73,7 +73,7 @@ local function config_lspconfig()
       vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
       vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
       vim.keymap.set({ 'n', 'v' }, '<space>ac', vim.lsp.buf.code_action, opts)
-      vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+      -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 
       vim.api.nvim_create_user_command('Format', function()
         vim.lsp.buf.format { async = true }
