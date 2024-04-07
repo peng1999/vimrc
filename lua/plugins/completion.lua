@@ -8,14 +8,14 @@ local function setup_cmp()
   -- Set up nvim-cmp.
   local cmp = require 'cmp'
   local luasnip = require 'luasnip'
-  local copilot = require("copilot.suggestion")
+  local has_copilot, copilot = pcall(require, "copilot.suggestion")
 
   local function on_tab(fallback)
     -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
     -- that way you will only jump inside the snippet region
     if luasnip.expand_or_locally_jumpable() then
       luasnip.expand_or_jump()
-    elseif copilot.is_visible() then
+    elseif has_copilot and copilot.is_visible() then
       copilot.accept()
     elseif cmp.visible() then
       cmp.select_next_item()

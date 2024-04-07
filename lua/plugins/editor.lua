@@ -35,6 +35,7 @@ return {
   -- },
   {
     "zbirenbaum/copilot.lua",
+    cond = not require('util').config_disabled('copilot'),
     cmd = "Copilot",
     event = "InsertEnter",
     opts = {
