@@ -32,20 +32,21 @@ return {
   },
 
   {
-    'chriskempson/vim-tomorrow-theme',
+    "EdenEast/nightfox.nvim",
     config = function()
-      vim.opt.termguicolors = true
+      require('nightfox').setup{
+        options = {
+          transparent = true,
+        },
+      }
       vim.cmd [[
-        colorscheme Tomorrow-Night
-        highlight Normal guibg=NONE
-        highlight FloatBorder ctermbg=NONE
-        highlight NormalFloat guibg=NONE
+        colorscheme nightfox
       ]]
       common_config()
     end,
     priority = 1000,
     cond = function ()
-      return require('config').theme == 'tomorrow'
+      return require('config').theme == 'nightfox'
     end
   },
 

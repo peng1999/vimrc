@@ -1,3 +1,4 @@
 return {
-  theme = 'tomorrow',
+  theme = 'nightfox',
+
 }

@@ -32,7 +32,7 @@ if vim.fn.isdirectory(backup_dir) == 0 then
   vim.fn.mkdir(backup_dir, '', tonumber('700', 8))
 end
 
-local undo_dir = vim.fn.stdpath('data') .. '/undo'
+local undo_dir = vim.fn.stdpath('state') .. '/undo'
 if vim.fn.isdirectory(undo_dir) == 0 then
   print('Creating ' .. undo_dir)
   vim.fn.mkdir(undo_dir)
