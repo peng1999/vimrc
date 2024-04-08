@@ -23,10 +23,12 @@ return {
       window = {
         mappings = {
           ['e'] = function() vim.cmd('Neotree focus filesystem left') end,
-          ['b'] = function() vim.cmd('Neotree focus buffers left') end,
           ['g'] = function() vim.cmd('Neotree focus git_status left') end,
+          ['s'] = function() vim.cmd('Neotree focus document_symbols left') end,
+          ['<tab>'] = 'toggle_node',
         },
       },
+      sources = { "filesystem", "git_status", "document_symbols" },
     },
     init = function()
       vim.api.nvim_create_user_command('EditInit', function()

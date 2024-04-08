@@ -1,7 +1,8 @@
 local function config_treesitter()
   require('nvim-treesitter.configs').setup {
     ensure_installed = {
-      'c', 'cpp', 'cuda', 'fish', 'go', 'lua', 'markdown', 'nix', 'python', 'rust', 'typst'
+      'c', 'cpp', 'cuda', 'fish', 'go', 'lua', 'markdown', 'nix', 'python', 'rust',
+      'typst', 'vim', 'vimdoc'
     },
     highlight = {
       enable = true,
