@@ -34,6 +34,7 @@ return {
       pickers = {
         find_files = {
           follow = true,
+          previewer = false,
         },
         buffers = {
           sort_mru = true,

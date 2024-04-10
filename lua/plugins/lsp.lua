@@ -101,12 +101,17 @@ return {
     "neovim/nvim-lspconfig",
     priority = 100,
     dependencies = {
-      { "folke/neoconf.nvim", cmd = "Neoconf", config = false, dependencies = { "nvim-lspconfig" } },
+      { "folke/neoconf.nvim" },
       { "folke/neodev.nvim",  opts = {} },
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
     },
     config = config_lspconfig,
+  },
+  {
+    "folke/neoconf.nvim",
+    cmd = "Neoconf",
+    opts = { },
   },
 
   {
