@@ -11,8 +11,11 @@ return {
       { '<Leader>ff', builtin.find_files },
       { '<Leader>fg', builtin.live_grep },
       { '<Leader>fb', builtin.buffers },
+      { '<Leader>fs', builtin.lsp_workspace_symbols },
       { '<Leader>R',  builtin.resume },
-      { 'gr',         builtin.lsp_references, desc = 'Find references' },
+      { 'gi',         builtin.lsp_implementations,  desc = 'Goto implementations' },
+      { 'gr',         builtin.lsp_references,       desc = 'Find references' },
+      { 'gd',         builtin.lsp_definitions,      desc = 'Goto definitions' },
     }
   end,
   opts = function()

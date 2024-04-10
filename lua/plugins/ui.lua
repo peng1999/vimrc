@@ -10,6 +10,7 @@ return {
     cmd = "Neotree",
     keys = {
       { "<leader>e", "<cmd>Neotree reveal<CR>" },
+      { "<leader>s", "<cmd>Neotree show left toggle reveal document_symbols<cr>"}
     },
     opts = {
       event_handlers = {
