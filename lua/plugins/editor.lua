@@ -54,11 +54,9 @@ return {
 
   {
     'alohaia/fcitx.nvim',
-    enabled = vim.fn.executable('fcitx5-remote'),
     config = function ()
       require 'fcitx' {}
     end,
-    cond = vim.env.DISPLAY ~= nil,
   },
 
   -- filetypes

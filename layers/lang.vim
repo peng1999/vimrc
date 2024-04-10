@@ -29,6 +29,7 @@ if executable("tectonic")
     let g:vimtex_compiler_tectonic = {
         \ 'options' : [
         \   '-r0',
+        \   '--keep-intermediates',
         \   '--keep-logs',
         \   '--synctex'
         \ ],

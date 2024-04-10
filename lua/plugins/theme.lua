@@ -64,4 +64,17 @@ return {
       return require('config').theme == 'tokyonight'
     end
   },
+
+  {
+    "rebelot/kanagawa.nvim",
+    priority = 1000,
+    config = function()
+      vim.cmd[[
+        colorscheme kanagawa
+      ]]
+    end,
+    cond = function ()
+      return require('config').theme == 'kanagawa'
+    end
+  }
 }
