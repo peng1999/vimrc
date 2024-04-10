@@ -55,7 +55,10 @@ return {
 
   {
     'alohaia/fcitx.nvim',
-    config = function ()
+    cond = function()
+      return vim.fn.executable('fcitx5-remote') == 1 or vim.fn.executable('fcitx-remote') == 1
+    end,
+    config = function()
       require 'fcitx' {}
     end,
   },
