@@ -16,6 +16,12 @@ return {
       { 'gi',         builtin.lsp_implementations,  desc = 'Goto implementations' },
       { 'gr',         builtin.lsp_references,       desc = 'Find references' },
       { 'gd',         builtin.lsp_definitions,      desc = 'Goto definitions' },
+      {
+        '<C-p>',
+        function()
+          builtin.buffers({ previewer = false, default_selection_index = 2 })
+        end
+      },
     }
   end,
   opts = function()

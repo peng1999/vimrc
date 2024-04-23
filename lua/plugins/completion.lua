@@ -72,9 +72,13 @@ local function setup_cmp()
     })
   })
 
+  local cmd_mapping = cmp.mapping.preset.cmdline()
+  cmd_mapping['<C-P>'] = nil
+  cmd_mapping['<C-N>'] = nil
+
   -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline({ '/', '?' }, {
-    mapping = cmp.mapping.preset.cmdline(),
+    mapping = cmd_mapping,
     completion = {
       completeopt = "menu,menuone,noselect",
     },
@@ -85,7 +89,7 @@ local function setup_cmp()
 
   -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
+    mapping = cmd_mapping,
     completion = {
       completeopt = "menu,menuone,noselect",
     },

@@ -7,6 +7,8 @@ vim.filetype.add({
   }
 })
 
+vim.treesitter.language.register('bash', 'PKGBUILD')
+
 -- Options
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
