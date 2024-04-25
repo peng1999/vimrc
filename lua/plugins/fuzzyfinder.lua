@@ -7,6 +7,12 @@ return {
   cmd = 'Telescope',
   keys = function()
     local builtin = require('telescope.builtin')
+
+    vim.cmd.nnoremenu([[PopUp.Goto\ Definition]], ":Telescope lsp_definitions<CR>")
+    vim.cmd.nnoremenu([[PopUp.Goto\ Implementation]], ":Telescope lsp_implementations<CR>")
+    vim.cmd.nnoremenu([[PopUp.Goto\ Type Definition]], ":Telescope lsp_type_definitions<CR>")
+    vim.cmd.nnoremenu([[PopUp.Show\ References]], ":Telescope lsp_references<CR>")
+
     return {
       { '<Leader>ff', builtin.find_files },
       { '<Leader>fg', builtin.live_grep },
@@ -16,6 +22,7 @@ return {
       { 'gi',         builtin.lsp_implementations,  desc = 'Goto implementations' },
       { 'gr',         builtin.lsp_references,       desc = 'Find references' },
       { 'gd',         builtin.lsp_definitions,      desc = 'Goto definitions' },
+      { 'gD',         builtin.lsp_type_definitions, desc = 'Goto type definitions' },
       {
         '<C-p>',
         function()
