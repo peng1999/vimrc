@@ -2,6 +2,12 @@ return {
   'tpope/vim-sensible',
 
   {
+    'nmac427/guess-indent.nvim',
+    event = 'BufReadPost',
+    opts = {},
+  },
+
+  {
     'kylechui/nvim-surround',
     event = 'VeryLazy',
     opts = {},
