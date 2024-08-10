@@ -24,8 +24,6 @@ if !has('nvim')
     source $VIMRUNTIME/vimrc_example.vim
 end
 
-behave mswin
-
 set shiftwidth=4
 set expandtab
 set smarttab
