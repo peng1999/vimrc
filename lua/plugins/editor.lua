@@ -3,8 +3,17 @@ return {
 
   {
     'nmac427/guess-indent.nvim',
-    event = 'BufReadPost',
-    opts = {},
+    opts = function ()
+      vim.api.nvim_create_autocmd("VimEnter", {
+        desc = "Guesss indentation when loading a file",
+        callback = function(args)
+          require("guess-indent").set_from_buffer(0, true, true)
+        end,
+      })
+      return {
+        auto_cmd = true,
+      }
+    end,
   },
 
   {

@@ -40,7 +40,6 @@ local function config_lspconfig()
         end
       }
     },
-    tsserver = {},
   }
 
   for server, config in pairs(servers) do
