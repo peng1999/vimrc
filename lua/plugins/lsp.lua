@@ -28,18 +28,21 @@ local function config_lspconfig()
     bashls = {},
     clangd = { is_utf8 = true },
     cmake = {},
+    gopls = {},
     jsonls = {},
     lua_ls = {},
     nil_ls = {},
     pyright = { is_utf8 = true },
     rust_analyzer = {},
+    texlab = {},
     tinymist = {
       config = {
         root_dir = function(dir)
           return lspconfig.util.find_git_ancestor(dir) or vim.fn.getcwd()
-        end
-      }
+        end,
+      },
     },
+    zls = {},
   }
 
   for server, config in pairs(servers) do
@@ -54,6 +57,8 @@ local function config_lspconfig()
   vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
   vim.cmd.aunmenu([[PopUp.How-to\ disable\ mouse]])
+
+  vim.lsp.inlay_hint.enable()
 
   -- Use LspAttach autocommand to only map the following keys
   -- after the language server attaches to the current buffer
@@ -120,6 +125,18 @@ return {
     "folke/neoconf.nvim",
     cmd = "Neoconf",
     opts = {},
+  },
+
+  {
+    "nvimtools/none-ls.nvim",
+    opts = function ()
+      local null_ls = require("null-ls")
+      return {
+        sources = {
+          null_ls.builtins.formatting.black,
+        }
+      }
+    end,
   },
 
   {

@@ -10,7 +10,7 @@ return {
     cmd = "Neotree",
     keys = {
       { "<leader>e", "<cmd>Neotree reveal<CR>" },
-      { "<leader>s", "<cmd>Neotree show left toggle reveal document_symbols<cr>"}
+      { "<leader>s", "<cmd>Neotree show left toggle reveal document_symbols<cr>" }
     },
     opts = {
       event_handlers = {
@@ -119,5 +119,14 @@ return {
         end
       })
     end
-  }
+  },
+
+  {
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    opts = {
+      open_mapping = '<C-t>',
+      direction = 'tab',
+    }
+  },
 }

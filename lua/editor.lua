@@ -4,6 +4,7 @@ vim.filetype.add({
     mpp = 'cpp',
     plt = 'gnuplot',
     gnu = 'gnuplot',
+    repos = 'yaml',
   }
 })
 
@@ -26,6 +27,21 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.completeopt = "menu,menuone,noselect"
 vim.opt.signcolumn = "yes"
+
+if vim.env.TERM == 'wezterm' then
+  local osc52 = require('vim.ui.clipboard.osc52')
+  vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+      ['+'] = osc52.copy('+'),
+      ['*'] = osc52.copy('*'),
+    },
+    paste = {
+      ['+'] = osc52.paste('+'),
+      ['*'] = osc52.paste('*'),
+    },
+  }
+end
 
 -- create a directory to hold backup files
 local backup_dir = '/tmp/vimbackup-' .. os.getenv('USER')
@@ -58,7 +74,6 @@ vim.g.mapleader = ' '
 vim.keymap.set('n', '<Leader>n', '<Cmd>noh<CR>')
 vim.keymap.set('n', '<Leader><Leader>', '<Cmd>ccl<CR>')
 vim.keymap.set('n', '<Leader>b', '<Cmd>buf#<CR>')
-vim.keymap.set('n', '<Leader>t', '<Cmd>buf term://<CR>')
 -- clipboard
 vim.keymap.set({'n', 'v'}, '<Leader>y', '"+y')
 vim.keymap.set({'n', 'v'}, '<Leader>p', '"+p')

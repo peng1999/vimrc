@@ -10,6 +10,9 @@ local function config_treesitter()
     incremental_selection = {
       enable = true,
     },
+    pairs = {
+      enable = true,
+    },
   }
 
   vim.wo.foldenable = false
@@ -23,5 +26,10 @@ return {
     event = 'VeryLazy',
     build = ':TSUpdate',
     config = config_treesitter,
+  },
+
+  {
+    'theHamsta/nvim-treesitter-pairs',
+    event = 'VeryLazy',
   },
 }
