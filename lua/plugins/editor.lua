@@ -6,7 +6,7 @@ return {
     opts = function ()
       vim.api.nvim_create_autocmd("VimEnter", {
         desc = "Guesss indentation when loading a file",
-        callback = function(args)
+        callback = function()
           require("guess-indent").set_from_buffer(0, true, true)
         end,
       })

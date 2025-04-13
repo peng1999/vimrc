@@ -25,15 +25,15 @@ local function config_lspconfig()
 
   ---@type { [string]: { is_utf8?: boolean, config?: table } }
   local servers = {
-    bashls = {},
+    -- bashls = {},
     clangd = { is_utf8 = true },
     cmake = {},
-    gopls = {},
-    jsonls = {},
-    lua_ls = {},
-    nil_ls = {},
+    -- gopls = {},
+    -- jsonls = {},
+    lua_ls = { bin = "lua-language-server" },
+    -- nil_ls = {},
     pyright = { is_utf8 = true },
-    rust_analyzer = {},
+    -- rust_analyzer = {},
     texlab = {},
     tinymist = {
       config = {
@@ -46,7 +46,10 @@ local function config_lspconfig()
   }
 
   for server, config in pairs(servers) do
-    lspconfig[server].setup(get_server_opts(config))
+    local bin = config.bin and config.bin or server
+    if vim.fn.executable(bin) == 1 then
+      lspconfig[server].setup(get_server_opts(config))
+    end
   end
 
   -- Global mappings.
