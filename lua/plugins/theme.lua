@@ -39,9 +39,6 @@ return {
           -- transparent = true,
         },
       }
-      vim.cmd [[
-        colorscheme nightfox
-      ]]
       common_config()
     end,
     priority = 1000,
@@ -75,6 +72,17 @@ return {
     end,
     cond = function ()
       return require('config').theme == 'kanagawa'
+    end
+  },
+
+  {
+    "zaldih/themery.nvim",
+    priority = 500,
+    opts = {
+      themes = {'nightfox', 'dayfox'},
+    },
+    cond = function ()
+      return require('config').theme == 'nightfox'
     end
   }
 }
