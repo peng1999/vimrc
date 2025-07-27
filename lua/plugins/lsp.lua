@@ -1,7 +1,6 @@
 local function config_lspconfig()
   -- vim.lsp.set_log_level("debug")
 
-  local lspconfig = require('lspconfig')
   local cmp_nvim_lsp = require('cmp_nvim_lsp')
 
   ---@param server_opts { is_utf8?: boolean, config?: table }
@@ -30,7 +29,7 @@ local function config_lspconfig()
     cmake = {},
     -- gopls = {},
     -- jsonls = {},
-    lua_ls = { bin = "lua-language-server" },
+    lua_ls = {},
     -- nil_ls = {},
     pyright = { is_utf8 = true },
     -- rust_analyzer = {},
@@ -38,7 +37,9 @@ local function config_lspconfig()
     tinymist = {
       config = {
         root_dir = function(dir)
-          return lspconfig.util.find_git_ancestor(dir) or vim.fn.getcwd()
+          return vim.fs.dirname(
+            vim.fs.find('.git', { path = dir, upward = true })[1]
+          ) or vim.fn.getcwd()
         end,
       },
     },
@@ -46,17 +47,15 @@ local function config_lspconfig()
   }
 
   for server, config in pairs(servers) do
-    local bin = config.bin and config.bin or server
-    if vim.fn.executable(bin) == 1 then
-      lspconfig[server].setup(get_server_opts(config))
-    end
+    vim.lsp.config(server, get_server_opts(config))
+    vim.lsp.enable(server)
   end
 
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
   vim.keymap.set('n', 'gh', vim.diagnostic.open_float)
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-  vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+  vim.keymap.set('n', '[d', function() vim.diagnostic.jump({count=-1, float=true}) end)
+  vim.keymap.set('n', ']d', function() vim.diagnostic.jump({count=1, float=true}) end)
   vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
   vim.cmd.aunmenu([[PopUp.How-to\ disable\ mouse]])
@@ -97,18 +96,20 @@ local function config_lspconfig()
       scope = 'cursor',
       border = 'rounded',
     },
-  })
-
-  -- Signcolumn diagnostic signs
-  local signs = { Error = "✘", Warn = "", Hint = "", Info = "" }
-  for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
-
-  -- Hover UI
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "rounded",
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = "✘",
+        [vim.diagnostic.severity.WARN]  = "",
+        [vim.diagnostic.severity.HINT]  = "",
+        [vim.diagnostic.severity.INFO]  = "",
+      },
+      numhl = {
+        [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+        [vim.diagnostic.severity.WARN]  = "DiagnosticSignWarn",
+        [vim.diagnostic.severity.HINT]  = "DiagnosticSignHint",
+        [vim.diagnostic.severity.INFO]  = "DiagnosticSignInfo",
+      },
+    },
   })
 end
 
@@ -118,7 +119,6 @@ return {
     priority = 100,
     dependencies = {
       { "folke/neoconf.nvim" },
-      { "folke/neodev.nvim", opts = {} },
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
     },
@@ -128,6 +128,19 @@ return {
     "folke/neoconf.nvim",
     cmd = "Neoconf",
     opts = {},
+  },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        "lazy.nvim",
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
+      integrations = {
+        lspconfig = false,
+      },
+    },
   },
 
   {
