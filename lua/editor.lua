@@ -60,14 +60,6 @@ end
 vim.opt.undodir:append('.')
 vim.opt.backupdir:prepend(backup_dir)
 
--- Color scheme
-vim.cmd 'syntax on'
-
--- Filetype
-vim.cmd 'filetype on'
-vim.cmd 'filetype plugin on'
-vim.cmd 'filetype indent on'
-
 -- Keymaps
 vim.g.mapleader = ' '
 
