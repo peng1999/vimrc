@@ -6,9 +6,9 @@ end
 
 return {
   {
-    'norcalli/nvim-colorizer.lua',
-    opts = {'*'},
-    main = 'colorizer',
+    "catgoose/nvim-colorizer.lua",
+    event = "BufReadPre",
+    opts = {},
   },
 
   {
