@@ -1,16 +1,13 @@
 local function config_lspconfig()
   -- vim.lsp.set_log_level("debug")
 
-  local cmp_nvim_lsp = require('cmp_nvim_lsp')
-
   ---@param server_opts { is_utf8?: boolean, config?: table }
   ---@return table
   local function get_server_opts(server_opts)
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_deep_extend("force", capabilities, cmp_nvim_lsp.default_capabilities())
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
 
     if server_opts.is_utf8 then
-      capabilities.offsetEncoding = "utf-8"
+      capabilities.offsetEncoding = { "utf-8" }
     end
 
     local opts = vim.tbl_deep_extend(

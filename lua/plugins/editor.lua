@@ -37,36 +37,15 @@ return {
   },
 
   {
-    'numToStr/Comment.nvim',
+    "folke/ts-comments.nvim",
+    opts = {},
     event = "VeryLazy",
-    config = true,
+    enabled = vim.fn.has("nvim-0.10.0") == 1,
   },
 
   'vim-utils/vim-husk',
   'machakann/vim-highlightedyank',
 
-  -- {
-  --   'github/copilot.vim',
-  -- },
-  {
-    "zbirenbaum/copilot.lua",
-    cond = not require('util').config_disabled('copilot'),
-    cmd = "Copilot",
-    event = "InsertEnter",
-    opts = {
-      panel = {
-        enabled = false,
-      },
-      suggestion = {
-        auto_trigger = true,
-        keymap = {
-          accept = false, -- This will be handled by the completion plugin
-          accept_line = "<C-f>",
-          accept_word = "<M-f>",
-        },
-      },
-    },
-  },
 
   {
     'alohaia/fcitx.nvim',

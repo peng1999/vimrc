@@ -1,35 +1,37 @@
 local function config_treesitter()
-  require('nvim-treesitter.configs').setup {
-    ensure_installed = {
-      'c', 'cpp', 'cuda', 'fish', 'go', 'lua', 'markdown', 'nix', 'python', 'rust',
-      'vim', 'vimdoc'
-    },
-    highlight = {
-      enable = true,
-    },
-    incremental_selection = {
-      enable = true,
-    },
-    pairs = {
-      enable = true,
-    },
-  }
+      require("nvim-treesitter").setup({})
 
-  vim.wo.foldenable = false
-  vim.wo.foldmethod = 'expr'
-  vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function(args)
+          pcall(vim.treesitter.start, args.buf)
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "markdown",
+        callback = function(args)
+          -- 只处理临时浮窗/临时文档，别影响真正的 markdown 文件
+          if vim.bo[args.buf].buftype == "nofile" then
+            vim.schedule(function()
+              pcall(vim.treesitter.stop, args.buf)
+            end)
+          end
+        end,
+      })
+
+      vim.o.foldmethod = "expr"
+      vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      vim.o.foldenable = false
 end
 
 return {
   {
-    'nvim-treesitter/nvim-treesitter',
-    event = 'VeryLazy',
-    build = ':TSUpdate',
+    "neovim-treesitter/nvim-treesitter",
+    lazy = false,
+    build = ":TSUpdate",
+    dependencies = {
+      "neovim-treesitter/treesitter-parser-registry",
+    },
     config = config_treesitter,
-  },
-
-  {
-    'theHamsta/nvim-treesitter-pairs',
-    event = 'VeryLazy',
   },
 }
