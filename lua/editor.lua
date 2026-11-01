@@ -77,6 +77,18 @@ vim.keymap.set({'n', 'v'}, 'k', 'gk')
 vim.keymap.set('c', '<C-P>', '<Up>')
 vim.keymap.set('c', '<C-N>', '<Down>')
 
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+  },
+}
+
 -- terminal
 vim.keymap.set('t', '<ESC>', '<C-\\><C-N>')
 local terminal = vim.api.nvim_create_augroup('terminal', {})
