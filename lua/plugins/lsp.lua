@@ -33,10 +33,8 @@ local function config_lspconfig()
     texlab = {},
     tinymist = {
       config = {
-        root_dir = function(dir)
-          return vim.fs.dirname(
-            vim.fs.find('.git', { path = dir, upward = true })[1]
-          ) or vim.fn.getcwd()
+        root_dir = function(bufnr, on_dir)
+          on_dir(vim.fs.root(bufnr, '.git') or vim.fn.getcwd())
         end,
       },
     },
@@ -71,7 +69,9 @@ local function config_lspconfig()
       -- See `:help vim.lsp.*` for documentation on any of the below functions
       local opts = { buffer = ev.buf }
       vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+      vim.keymap.set('n', 'K', function()
+        vim.lsp.buf.hover({ border = 'rounded' })
+      end, opts)
       vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
       vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
       vim.keymap.set({ 'n', 'v' }, '<space>ac', vim.lsp.buf.code_action, opts)
