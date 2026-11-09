@@ -39,6 +39,7 @@ return {
           -- transparent = true,
         },
       }
+      vim.cmd.colorscheme('nightfox')
       common_config()
     end,
     priority = 1000,
