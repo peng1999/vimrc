@@ -29,6 +29,14 @@ local function config_lspconfig()
     lua_ls = {},
     -- nil_ls = {},
     pyright = { is_utf8 = true },
+    ruff = {
+      config = {
+        on_attach = function(client)
+          -- Keep Python hover documentation provided by Pyright.
+          client.server_capabilities.hoverProvider = false
+        end,
+      },
+    },
     -- rust_analyzer = {},
     texlab = {},
     tinymist = {
@@ -57,6 +65,15 @@ local function config_lspconfig()
 
   vim.lsp.inlay_hint.enable()
 
+  vim.api.nvim_create_user_command('Format', function()
+    vim.lsp.buf.format {
+      async = true,
+      filter = function(client)
+        return vim.bo.filetype ~= 'python' or client.name == 'ruff'
+      end,
+    }
+  end, {})
+
   -- Use LspAttach autocommand to only map the following keys
   -- after the language server attaches to the current buffer
   vim.api.nvim_create_autocmd('LspAttach', {
@@ -79,10 +96,6 @@ local function config_lspconfig()
       -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
       -- vim.keymap.set('n', 'gD', vim.lsp.buf.type_definition, opts)
       -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-
-      vim.api.nvim_create_user_command('Format', function()
-        vim.lsp.buf.format { async = true }
-      end, {})
     end,
   })
 
@@ -117,7 +130,10 @@ return {
     dependencies = {
       { "folke/neoconf.nvim" },
       "mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      {
+        "williamboman/mason-lspconfig.nvim",
+        opts = { ensure_installed = { "ruff" } },
+      },
     },
     config = config_lspconfig,
   },
@@ -141,18 +157,6 @@ return {
   },
 
   {
-    "nvimtools/none-ls.nvim",
-    opts = function ()
-      local null_ls = require("null-ls")
-      return {
-        sources = {
-          null_ls.builtins.formatting.black,
-        }
-      }
-    end,
-  },
-
-  {
     "williamboman/mason.nvim",
     cmd = "Mason",
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
@@ -167,15 +171,4 @@ return {
       hint_enable = false,
     },
   },
-
-  {
-    "mrded/nvim-lsp-notify",
-    event = "VeryLazy",
-    dependencies = { "rcarriga/nvim-notify" },
-    config = function()
-      require('lsp-notify').setup {
-        notify = require("notify"),
-      }
-    end,
-  }
 }
